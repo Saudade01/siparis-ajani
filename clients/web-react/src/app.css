@@ -1,0 +1,894 @@
+/* SiparisAjani React istemcisi.
+   Tek dosyada küçük bir tasarım belirteci sistemi; UI kütüphanesi yok.
+   Sıra: 1) belirteçler 2) temel 3) yerleşim 4) bileşenler 5) ekran genişlikleri */
+
+/* 1) Tasarım belirteçleri ------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+
+  --color-canvas: #f6f5f2;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f1efe9;
+  --color-text: #1b1a17;
+  --color-text-soft: #57534b;
+  --color-text-faint: #7c766c;
+  --color-border: #ddd8cd;
+  --color-border-strong: #c3bcae;
+
+  --color-accent: #1d4ed8;
+  --color-accent-hover: #1740b0;
+  --color-accent-soft: #e6ecfd;
+  --color-on-accent: #ffffff;
+
+  --color-ok: #14733c;
+  --color-ok-bg: #e6f4ea;
+  --color-ok-border: #a8d5b9;
+
+  --color-warn: #96590a;
+  --color-warn-text: #6b3f05;
+  --color-warn-bg: #fdf1dc;
+  --color-warn-border: #e5c27f;
+
+  --color-danger: #b02020;
+  --color-danger-bg: #fcebea;
+  --color-danger-border: #e8b0ac;
+
+  --color-info-bg: #eaf0fd;
+  --color-info-border: #b9caf5;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+
+  --shadow-sm: 0 1px 2px rgba(27, 26, 23, 0.08);
+
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  --text-sm: 0.875rem;
+  --text-xs: 0.8125rem;
+  --page-max: 1180px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-canvas: #151412;
+    --color-surface: #1f1e1b;
+    --color-surface-sunken: #272521;
+    --color-text: #f2efe8;
+    --color-text-soft: #c2bcb0;
+    --color-text-faint: #9b958a;
+    --color-border: #3a3731;
+    --color-border-strong: #4e4a42;
+
+    --color-accent: #7ea3ff;
+    --color-accent-hover: #9cb8ff;
+    --color-accent-soft: #23304f;
+    --color-on-accent: #10193a;
+
+    --color-ok: #74d69a;
+    --color-ok-bg: #16301f;
+    --color-ok-border: #2e5c3f;
+
+    --color-warn: #f0c070;
+    --color-warn-text: #f4d8a6;
+    --color-warn-bg: #362a13;
+    --color-warn-border: #6b5122;
+
+    --color-danger: #f3948d;
+    --color-danger-bg: #3a1b19;
+    --color-danger-border: #6e3430;
+
+    --color-info-bg: #1e2740;
+    --color-info-border: #35456e;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* 2) Temel ---------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 1.25;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+/* Odak her yerde görünür: klavye kullanıcısı nerede olduğunu kaybetmesin. */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.meta {
+  color: var(--color-text-soft);
+  font-size: var(--text-sm);
+}
+
+.lead {
+  color: var(--color-text-soft);
+  max-width: 62ch;
+}
+
+.optional {
+  color: var(--color-text-faint);
+  font-weight: 400;
+}
+
+/* 3) Yerleşim ------------------------------------------------------------- */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.topbar-inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  min-height: 3.5rem;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.brand-note {
+  margin-right: auto;
+  color: var(--color-text-faint);
+  font-size: var(--text-xs);
+}
+
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.stack--tight {
+  gap: var(--space-3);
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* 4) Bileşenler ----------------------------------------------------------- */
+
+.health-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-strong);
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-soft);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 550;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.health-badge:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.health-dot,
+.status-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex: none;
+}
+
+.health-badge--checking {
+  color: var(--color-text-faint);
+}
+
+.health-badge--ai {
+  color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+  border-color: var(--color-info-border);
+}
+
+.health-badge--rules {
+  color: var(--color-warn-text);
+  background-color: var(--color-warn-bg);
+  border-color: var(--color-warn-border);
+}
+
+.health-badge--down {
+  color: var(--color-danger);
+  background-color: var(--color-danger-bg);
+  border-color: var(--color-danger-border);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.5rem 1rem;
+  min-height: 2.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-text-soft);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text);
+}
+
+.btn-lg {
+  min-height: 2.9rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 1.0625rem;
+}
+
+.btn-sm {
+  min-height: 2rem;
+  padding: 0.3rem 0.6rem;
+  font-size: var(--text-xs);
+}
+
+.link-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  align-self: flex-start;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.field-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.field-label {
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  min-height: 2.5rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.input:hover,
+.textarea:hover,
+.select:hover {
+  border-color: var(--color-accent);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 9rem;
+}
+
+.input-sm,
+.select-sm {
+  min-height: 2.1rem;
+  padding: 0.3rem 0.5rem;
+  font-size: var(--text-sm);
+}
+
+.input-qty {
+  width: 5.5rem;
+  text-align: right;
+}
+
+.is-invalid {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-bg);
+}
+
+.hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-soft);
+}
+
+.hint--warn {
+  color: var(--color-warn-text);
+  font-weight: 600;
+}
+
+.hint--error {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.segmented {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.segmented-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.segmented-option {
+  display: inline-flex;
+}
+
+.segmented-option input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.segmented-option span {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface);
+  color: var(--color-text-soft);
+  font-size: var(--text-sm);
+  font-weight: 550;
+  cursor: pointer;
+}
+
+.segmented-option input:checked + span {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.segmented-option input:focus-visible + span {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.notice {
+  border: 1px solid var(--color-border);
+  border-left-width: 4px;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface-sunken);
+  font-size: var(--text-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.notice-title {
+  font-weight: 650;
+}
+
+.notice--info {
+  background-color: var(--color-info-bg);
+  border-color: var(--color-info-border);
+  border-left-color: var(--color-accent);
+}
+
+.notice--success {
+  background-color: var(--color-ok-bg);
+  border-color: var(--color-ok-border);
+  border-left-color: var(--color-ok);
+  color: var(--color-ok);
+}
+
+.notice--warning {
+  background-color: var(--color-warn-bg);
+  border-color: var(--color-warn-border);
+  border-left-color: var(--color-warn);
+  color: var(--color-warn-text);
+}
+
+.notice--error {
+  background-color: var(--color-danger-bg);
+  border-color: var(--color-danger-border);
+  border-left-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.summary-counts {
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+/* Tablo kendi kabında yatay kayar, sayfayı taşırmaz. */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.order-table {
+  min-width: 62rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-soft);
+  font-size: var(--text-xs);
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.line-row--matched td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-ok);
+}
+
+.line-row--ambiguous td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-warn);
+}
+
+.line-row--notfound td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-danger);
+}
+
+.col-no {
+  width: 3rem;
+  color: var(--color-text-faint);
+}
+
+.col-raw {
+  min-width: 13rem;
+}
+
+.col-qty {
+  width: 7rem;
+}
+
+.col-unit {
+  width: 5rem;
+  color: var(--color-text-soft);
+}
+
+.col-product {
+  min-width: 17rem;
+}
+
+.col-confidence {
+  width: 7.5rem;
+}
+
+.col-status {
+  width: 8rem;
+}
+
+.col-actions {
+  width: 6rem;
+}
+
+.col-product > * {
+  display: block;
+}
+
+.col-product .select {
+  max-width: 22rem;
+}
+
+.raw-text {
+  overflow-wrap: anywhere;
+}
+
+.product-name {
+  font-weight: 600;
+}
+
+.product-sku,
+.picker-option-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-soft);
+}
+
+.row-note {
+  font-size: var(--text-xs);
+  color: var(--color-text-soft);
+  margin-top: var(--space-1);
+}
+
+.row-note--ok {
+  color: var(--color-ok);
+  font-weight: 600;
+}
+
+.row-note--error {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+/* Durum rozeti: renk tek başına anlam taşımaz, yanında metin var. */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid currentColor;
+  font-size: var(--text-xs);
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.status-badge--matched {
+  color: var(--color-ok);
+  background-color: var(--color-ok-bg);
+}
+
+.status-badge--ambiguous {
+  color: var(--color-warn-text);
+  background-color: var(--color-warn-bg);
+}
+
+.status-badge--notfound {
+  color: var(--color-danger);
+  background-color: var(--color-danger-bg);
+}
+
+.confidence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.confidence-value {
+  font-size: var(--text-xs);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.confidence-bar {
+  display: block;
+  width: 100%;
+  max-width: 5rem;
+  height: 0.4rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-sunken);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.confidence-fill {
+  display: block;
+  height: 100%;
+  background-color: currentColor;
+}
+
+.confidence--high {
+  color: var(--color-ok);
+}
+
+.confidence--medium {
+  color: var(--color-warn);
+}
+
+.confidence--low {
+  color: var(--color-danger);
+}
+
+.confidence-manual {
+  font-size: var(--text-xs);
+  color: var(--color-text-soft);
+  font-style: italic;
+}
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.picker .input {
+  max-width: 22rem;
+}
+
+.picker-status {
+  font-size: var(--text-xs);
+  color: var(--color-text-soft);
+}
+
+.picker-status--error {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.picker-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 22rem;
+  max-height: 13rem;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.picker-results li + li {
+  border-top: 1px solid var(--color-border);
+}
+
+.picker-option {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: var(--text-xs);
+  text-align: left;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.picker-option:hover {
+  background-color: var(--color-accent-soft);
+}
+
+.picker-option-name {
+  font-weight: 600;
+}
+
+.export-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-4);
+}
+
+/* 5) Ekran genişlikleri --------------------------------------------------- */
+
+@media (max-width: 1280px) {
+  .page {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+}
+
+/* Telefon (400px): tek sütun, daha büyük dokunma alanları. */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.35rem;
+  }
+
+  .topbar-inner {
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .brand-note {
+    margin-right: 0;
+  }
+
+  .health-badge {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .page {
+    padding: var(--space-4) var(--space-3) var(--space-5);
+  }
+
+  .card {
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+  }
+
+  .stack {
+    gap: var(--space-4);
+  }
+
+  .actions .btn {
+    flex: 1 1 auto;
+  }
+
+  .export-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .data-table thead th {
+    position: static;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
