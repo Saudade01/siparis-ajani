@@ -69,7 +69,7 @@ jobs:
       # aşağıdaki adımlar atlanır; iş yine de yeşil biter.
       - name: Node.js kur
         if: hashFiles('clients/web-react/package.json') != ''
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "24"
           cache: npm
