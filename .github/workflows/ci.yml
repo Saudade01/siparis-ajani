@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Kodu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: .NET SDK'yı kur
         uses: actions/setup-dotnet@v4
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Kodu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # clients/web-react henüz yoksa (örn. iş ayrılırken oluşturulmadıysa)
       # aşağıdaki adımlar atlanır; iş yine de yeşil biter.
