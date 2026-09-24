@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Boş bırakıldı: CI model çağrısı yapmaz, anahtar yoksa kural tabanlı
+# ayrıştırıcı devreye girer.
+env:
+  ANTHROPIC_API_KEY: ""
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodu al
+        uses: actions/checkout@v4
+
+      - name: .NET SDK'yı kur
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: NuGet önbelleği
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Bağımlılıkları geri yükle
+        run: dotnet restore SiparisAjani.slnx
+
+      - name: Biçim denetimi
+        run: dotnet format SiparisAjani.slnx --verify-no-changes --no-restore
+
+      - name: Derle (Release)
+        run: dotnet build SiparisAjani.slnx -c Release --no-restore
+
+      - name: Test et
+        run: dotnet test SiparisAjani.slnx -c Release --no-build --logger "trx" --results-directory TestResults
+
+      - name: Test sonuçlarını yükle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults
+          retention-days: 14
+
+  web-react:
+    name: React istemcisi (clients/web-react)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodu al
+        uses: actions/checkout@v4
+
+      # clients/web-react henüz yoksa (örn. iş ayrılırken oluşturulmadıysa)
+      # aşağıdaki adımlar atlanır; iş yine de yeşil biter.
+      - name: Node.js kur
+        if: hashFiles('clients/web-react/package.json') != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: clients/web-react/package-lock.json
+
+      - name: Bağımlılıkları geri yükle
+        if: hashFiles('clients/web-react/package.json') != ''
+        working-directory: clients/web-react
+        run: npm ci
+
+      - name: Derle
+        if: hashFiles('clients/web-react/package.json') != ''
+        working-directory: clients/web-react
+        run: npm run build
+
+      - name: Test et
+        if: hashFiles('clients/web-react/package.json') != ''
+        working-directory: clients/web-react
+        run: npm test

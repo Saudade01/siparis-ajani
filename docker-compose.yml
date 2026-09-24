@@ -1,0 +1,45 @@
+# SiparisAjani demo ortamı: `docker compose up --build` API'yi (:5080) ve
+# arayüzü (:5090) birlikte açar. Claude anahtarı opsiyoneldir; boşsa kural
+# tabanlı ayrıştırıcı devreye girer .
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/SiparisAjani.Api/Dockerfile
+    ports:
+      - "5080:5080"
+    environment:
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+    volumes:
+      - app-data:/app/App_Data
+    networks:
+      - siparisajani
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:5080/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: src/SiparisAjani.Web/Dockerfile
+    ports:
+      - "5090:5090"
+    environment:
+      Api__BaseUrl: "http://api:5080"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - siparisajani
+    restart: unless-stopped
+
+networks:
+  siparisajani:
+    driver: bridge
+
+volumes:
+  app-data:
