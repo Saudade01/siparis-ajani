@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SiparisAjani.Api/SiparisAjani.Api.csproj" />
+    <Project Path="src/SiparisAjani.Contracts/SiparisAjani.Contracts.csproj" />
+    <Project Path="src/SiparisAjani.Core/SiparisAjani.Core.csproj" />
+    <Project Path="src/SiparisAjani.Infrastructure/SiparisAjani.Infrastructure.csproj" />
+    <Project Path="src/SiparisAjani.Web/SiparisAjani.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SiparisAjani.Api.Tests/SiparisAjani.Api.Tests.csproj" />
+    <Project Path="tests/SiparisAjani.Core.Tests/SiparisAjani.Core.Tests.csproj" />
+  </Folder>
+</Solution>

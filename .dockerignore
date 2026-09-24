@@ -1,0 +1,34 @@
+# Derleme çıktıları
+**/bin/
+**/obj/
+**/TestResults/
+
+# Node / React istemcisi
+**/node_modules/
+**/dist/
+clients/web-react/build/
+
+# Uygulama verisi ve sürüm kontrolü
+**/App_Data/
+.git/
+.gitignore
+
+# Dokümantasyon ve yapılandırma
+docs/
+.claude/
+CLAUDE.md
+README.md
+
+# IDE / araç dosyaları
+.vs/
+.vscode/
+.idea/
+*.user
+
+# Geliştirici ve CI dosyaları (imaj içine gerekmez)
+.github/
+scripts/
+.editorconfig
+.dockerignore
+Dockerfile*
+docker-compose*.yml
