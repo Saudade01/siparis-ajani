@@ -1,0 +1,20 @@
+{
+  "lines": [
+    {
+      "quantity": 10,
+      "unit": "kutu",
+      "sku": "VD-3530-SNT"
+    },
+    {
+      "quantity": 6,
+      "unit": "kutu",
+      "sku": "VD-5060-SNT"
+    },
+    {
+      "quantity": 4,
+      "unit": "adet",
+      "sku": "KP-750-PU"
+    }
+  ],
+  "maskedFields": []
+}

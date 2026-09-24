@@ -1,0 +1,22 @@
+{
+  "lines": [
+    {
+      "quantity": 5,
+      "unit": "kutu",
+      "sku": "VD-4040-SNT"
+    },
+    {
+      "quantity": 2,
+      "unit": "koli",
+      "sku": "SL-280-SEF"
+    },
+    {
+      "quantity": 10,
+      "unit": "paket",
+      "sku": "DB-08-PLS"
+    }
+  ],
+  "maskedFields": [
+    "phone"
+  ]
+}

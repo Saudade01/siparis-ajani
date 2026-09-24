@@ -1,0 +1,33 @@
+{
+  "lines": [
+    {
+      "quantity": 10,
+      "unit": "kutu",
+      "sku": "VD-3525-ALC"
+    },
+    {
+      "quantity": 4,
+      "unit": "paket",
+      "sku": "DB-KLB-ALC"
+    },
+    {
+      "quantity": 20,
+      "unit": "çuval",
+      "sku": "BY-ALC-STN-25"
+    },
+    {
+      "quantity": 24,
+      "unit": "rulo",
+      "sku": "BY-MSK-48"
+    },
+    {
+      "quantity": 6,
+      "unit": "adet",
+      "sku": "BY-RLO-25"
+    }
+  ],
+  "maskedFields": [
+    "phone",
+    "email"
+  ]
+}

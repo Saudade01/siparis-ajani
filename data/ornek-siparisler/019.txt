@@ -1,0 +1,14 @@
+---------- İletilen ileti ---------
+Kimden: Satınalma <satinalma2@example.com>
+Tarih: 15 Eylül 2026
+Konu: Tekrar sipariş
+
+Merhaba,
+Aşağıdakilerden 5'er adet gönderebilir misiniz:
+Pense 180 mm
+Kargaburun 160 mm
+Yan keski
+Kontrol kalemi
+
+Ayrıca 2 adet 14 inç boru anahtarı.
+İyi çalışmalar

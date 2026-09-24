@@ -1,0 +1,25 @@
+{
+  "lines": [
+    {
+      "quantity": 20,
+      "unit": "metre",
+      "sku": "EL-TTR-325"
+    },
+    {
+      "quantity": 5,
+      "unit": "paket",
+      "sku": "EL-KBG-200"
+    },
+    {
+      "quantity": 3,
+      "unit": "adet",
+      "sku": "EL-IZB-SYH"
+    },
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": "EL-LED-12"
+    }
+  ],
+  "maskedFields": []
+}

@@ -1,0 +1,32 @@
+{
+  "lines": [
+    {
+      "quantity": 5,
+      "unit": "adet",
+      "sku": "EA-PNS-180"
+    },
+    {
+      "quantity": 5,
+      "unit": "adet",
+      "sku": "EA-KRG-160"
+    },
+    {
+      "quantity": 5,
+      "unit": "adet",
+      "sku": "EA-YNK-160"
+    },
+    {
+      "quantity": 5,
+      "unit": "adet",
+      "sku": "EA-TRN-KNT"
+    },
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": "EA-BRA-14"
+    }
+  ],
+  "maskedFields": [
+    "email"
+  ]
+}

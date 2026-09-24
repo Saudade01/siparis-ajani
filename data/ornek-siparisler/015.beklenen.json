@@ -1,0 +1,40 @@
+{
+  "lines": [
+    {
+      "quantity": 8,
+      "unit": "kutu",
+      "sku": "VD-4030-SNT"
+    },
+    {
+      "quantity": 4,
+      "unit": "kutu",
+      "sku": null
+    },
+    {
+      "quantity": 6,
+      "unit": "adet",
+      "sku": "YP-TTK-1KG"
+    },
+    {
+      "quantity": 3,
+      "unit": "adet",
+      "sku": "YP-KNT-400"
+    },
+    {
+      "quantity": 2,
+      "unit": "kutu",
+      "sku": null
+    },
+    {
+      "quantity": 10,
+      "unit": "adet",
+      "sku": "ZM-SU-120"
+    },
+    {
+      "quantity": 10,
+      "unit": "adet",
+      "sku": "ZM-SU-180"
+    }
+  ],
+  "maskedFields": []
+}

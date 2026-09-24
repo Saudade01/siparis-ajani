@@ -1,0 +1,14 @@
+Sayın yetkili,
+
+Firmamız adına aşağıdaki siparişi oluşturmanızı rica ederiz:
+
+Ürün;Miktar;Birim
+PPRC Boru 20 mm;50;adet
+PPRC Dirsek 20 mm;40;adet
+PPRC Te 20 mm;25;adet
+PPRC Küresel Vana 20 mm;10;adet
+Teflon bant;20;adet
+8694020351963;12;adet
+
+İrtibat: siparis@example.com / 0500 000 00 04
+Örnek Tesisat Ltd.

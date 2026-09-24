@@ -1,0 +1,30 @@
+{
+  "lines": [
+    {
+      "quantity": 5,
+      "unit": null,
+      "sku": "MU-SDS-08160"
+    },
+    {
+      "quantity": 5,
+      "unit": null,
+      "sku": "MU-SDS-10160"
+    },
+    {
+      "quantity": 10,
+      "unit": null,
+      "sku": "MU-HSS-006"
+    },
+    {
+      "quantity": 10,
+      "unit": null,
+      "sku": "MU-HSS-008"
+    },
+    {
+      "quantity": 2,
+      "unit": null,
+      "sku": "MU-SET-BTN5"
+    }
+  ],
+  "maskedFields": []
+}

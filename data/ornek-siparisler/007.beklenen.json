@@ -1,0 +1,27 @@
+{
+  "lines": [
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": "EA-CKC-500"
+    },
+    {
+      "quantity": 1,
+      "unit": "adet",
+      "sku": "EA-TRZ-60"
+    },
+    {
+      "quantity": 3,
+      "unit": "adet",
+      "sku": "EA-MTR-5"
+    },
+    {
+      "quantity": 1,
+      "unit": "takım",
+      "sku": "EA-TRN-SET6"
+    }
+  ],
+  "maskedFields": [
+    "nationalId"
+  ]
+}

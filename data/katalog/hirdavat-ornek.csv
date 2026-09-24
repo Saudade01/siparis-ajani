@@ -1,0 +1,317 @@
+sku,name,unit,barcode,category
+VD-3016-SNT,Sunta Vidası 3x16 (500'lü kutu),kutu,8694000000133,vida
+VD-3020-SNT,Sunta Vidası 3x20 (500'lü kutu),kutu,8694000079320,vida
+VD-3525-SNT,Sunta Vidası 3.5x25 (500'lü kutu),kutu,8694000158513,vida
+VD-3530-SNT,Sunta Vidası 3.5x30 (500'lü kutu),kutu,8694000237706,vida
+VD-4030-SNT,Sunta Vidası 4x30 (500'lü kutu),kutu,8694000316890,vida
+VD-4040-SNT,Sunta Vidası 4x40 (500'lü kutu),kutu,8694000396083,vida
+VD-4050-SNT,Sunta Vidası 4x50 (500'lü kutu),kutu,8694000475276,vida
+VD-4060-SNT,Sunta Vidası 4x60 (500'lü kutu),kutu,8694000554469,vida
+VD-5050-SNT,Sunta Vidası 5x50 (500'lü kutu),kutu,8694000633652,vida
+VD-5060-SNT,Sunta Vidası 5x60 (500'lü kutu),kutu,8694000712845,vida
+VD-5070-SNT,Sunta Vidası 5x70 (500'lü kutu),kutu,8694000792038,vida
+VD-5080-SNT,Sunta Vidası 5x80 (500'lü kutu),kutu,8694000871221,vida
+VD-3525-ALC,Alçıpan Vidası 3.5x25 (1000'li kutu),kutu,8694000950414,vida
+VD-3535-ALC,Alçıpan Vidası 3.5x35 (1000'li kutu),kutu,8694001029607,vida
+VD-3545-ALC,Alçıpan Vidası 3.5x45 (1000'li kutu),kutu,8694001108791,vida
+VD-3555-ALC,Alçıpan Vidası 3.5x55 (1000'li kutu),kutu,8694001187987,vida
+VD-4213-AKL,Akıllı Vida Matkap Uçlu 4.2x13 (1000'li kutu),kutu,8694001267177,vida
+VD-4216-AKL,Akıllı Vida Matkap Uçlu 4.2x16 (1000'li kutu),kutu,8694001346360,vida
+VD-4219-AKL,Akıllı Vida Matkap Uçlu 4.2x19 (1000'li kutu),kutu,8694001425553,vida
+VD-4225-AKL,Akıllı Vida Matkap Uçlu 4.2x25 (1000'li kutu),kutu,8694001504746,vida
+VD-6325-CAT,Trapez Çatı Vidası 6.3x25 (250'li paket),paket,8694001583932,vida
+VD-6350-CAT,Trapez Çatı Vidası 6.3x50 (250'li paket),paket,8694001663122,vida
+VD-6380-CAT,Trapez Çatı Vidası 6.3x80 (250'li paket),paket,8694001742315,vida
+CV-M0630,Altıgen Başlı Cıvata M6x30 (50'li paket),paket,8694001821508,vida
+CV-M0840,Altıgen Başlı Cıvata M8x40 (50'li paket),paket,8694001900692,vida
+CV-M0860,Altıgen Başlı Cıvata M8x60 (50'li paket),paket,8694001979889,vida
+CV-M1050,Altıgen Başlı Cıvata M10x50 (50'li paket),paket,8694002059078,vida
+CV-M1080,Altıgen Başlı Cıvata M10x80 (50'li paket),paket,8694002138261,vida
+CV-M12100,Altıgen Başlı Cıvata M12x100 (50'li paket),paket,8694002217454,vida
+SM-M06,Altıgen Somun M6 (100'lü paket),paket,8694002296640,vida
+SM-M08,Altıgen Somun M8 (100'lü paket),paket,8694002375833,vida
+SM-M10,Altıgen Somun M10 (100'lü paket),paket,8694002455023,vida
+SM-M12,Altıgen Somun M12 (100'lü paket),paket,8694002534216,vida
+PL-M06,Düz Pul M6 (100'lü paket),paket,8694002613409,vida
+PL-M08,Düz Pul M8 (100'lü paket),paket,8694002692596,vida
+PL-M10,Düz Pul M10 (100'lü paket),paket,8694002771789,vida
+VD-8060-TRF,Trifon Vida 8x60 (100'lü paket),paket,8694002850972,vida
+VD-MNF-100,Mobilya Bağlantı Vidası Minifix (100'lü paket),paket,8694002930162,vida
+CV-M0840-GMB,Gömme Başlı Civata M8x40 (50'li paket),paket,8694003009355,vida
+DB-05-PLS,Plastik Dübel 5'lik (100'lü paket),paket,8694003088541,dübel
+DB-06-PLS,Plastik Dübel 6'lık (100'lü paket),paket,8694003167734,dübel
+DB-08-PLS,Plastik Dübel 8'lik (100'lü paket),paket,8694003246927,dübel
+DB-10-PLS,Plastik Dübel 10'luk (100'lü paket),paket,8694003326117,dübel
+DB-12-PLS,Plastik Dübel 12'lik (100'lü paket),paket,8694003405300,dübel
+DB-14-PLS,Plastik Dübel 14'lük (100'lü paket),paket,8694003484497,dübel
+DB-0640-CKM,Çakmalı Dübel 6x40 (100'lü paket),paket,8694003563680,dübel
+DB-0660-CKM,Çakmalı Dübel 6x60 (100'lü paket),paket,8694003642873,dübel
+DB-0880-CKM,Çakmalı Dübel 8x80 (100'lü paket),paket,8694003722063,dübel
+DB-08100-CKM,Çakmalı Dübel 8x100 (100'lü paket),paket,8694003801256,dübel
+DB-10120-CKM,Çakmalı Dübel 10x120 (100'lü paket),paket,8694003880442,dübel
+DB-M6-CLK,Çelik Dübel M6 (Metal Dübel),adet,8694003959636,dübel
+DB-M8-CLK,Çelik Dübel M8 (Metal Dübel),adet,8694004038828,dübel
+DB-M10-CLK,Çelik Dübel M10 (Metal Dübel),adet,8694004118018,dübel
+DB-M12-CLK,Çelik Dübel M12 (Metal Dübel),adet,8694004197204,dübel
+DB-KLB-ALC,Kelebek Dübel Alçıpan İçin (50'li paket),paket,8694004276398,dübel
+DB-MTL-ALC,Metal Alçıpan Dübeli (100'lü paket),paket,8694004355581,dübel
+DB-KMY-300,Kimyasal Dübel 300 ml,adet,8694004434774,dübel
+SL-280-SEF,Silikon Şeffaf 280 ml,adet,8694004513967,silikon/yapıştırıcı
+SL-280-BYZ,Silikon Beyaz 280 ml,adet,8694004593150,silikon/yapıştırıcı
+SL-280-SYH,Silikon Siyah 280 ml,adet,8694004672343,silikon/yapıştırıcı
+SL-280-GRI,Silikon Gri 280 ml,adet,8694004751536,silikon/yapıştırıcı
+SL-280-KHV,Silikon Kahverengi 280 ml,adet,8694004830729,silikon/yapıştırıcı
+SL-280-ANB,Antibakteriyel Silikon Beyaz 280 ml,adet,8694004909913,silikon/yapıştırıcı
+SL-280-AKV,Akvaryum Silikonu Şeffaf 280 ml,adet,8694004989106,silikon/yapıştırıcı
+SL-280-ISI,Yüksek Isı Silikonu Kırmızı 280 ml,adet,8694005068299,silikon/yapıştırıcı
+SL-050-SEF,Tüp Silikon Şeffaf 50 ml,adet,8694005147482,silikon/yapıştırıcı
+MS-280-BYZ,Akrilik Mastik Beyaz 280 ml,adet,8694005226675,silikon/yapıştırıcı
+KP-750-PU,Poliüretan Köpük 750 ml,adet,8694005305868,silikon/yapıştırıcı
+KP-500-PU,Poliüretan Köpük 500 ml,adet,8694005385051,silikon/yapıştırıcı
+KP-750-TBC,Tabanca Tipi Poliüretan Köpük 750 ml,adet,8694005464244,silikon/yapıştırıcı
+KP-500-TMZ,Köpük Temizleyici 500 ml,adet,8694005543437,silikon/yapıştırıcı
+YP-HZL-20,Hızlı Yapıştırıcı 20 gr,adet,8694005622620,silikon/yapıştırıcı
+YP-HZL-400,Hızlı Yapıştırıcı Seti 400 ml + Aktivatör,takım,8694005701813,silikon/yapıştırıcı
+YP-KNT-400,Kontakt Yapıştırıcı 400 gr,adet,8694005781006,silikon/yapıştırıcı
+YP-KNT-850,Kontakt Yapıştırıcı 850 gr,adet,8694005860190,silikon/yapıştırıcı
+YP-TTK-1KG,Ahşap Tutkalı 1 kg,adet,8694005939384,silikon/yapıştırıcı
+YP-TTK-500,Ahşap Tutkalı 500 gr,adet,8694006018576,silikon/yapıştırıcı
+YP-MNT-310,Montaj Yapıştırıcısı 310 ml,adet,8694006097762,silikon/yapıştırıcı
+YP-EPK-24,Epoksi Yapıştırıcı İki Bileşenli 24 ml,adet,8694006176955,silikon/yapıştırıcı
+YP-CNT-85,Sıvı Conta Kırmızı 85 gr,adet,8694006256145,silikon/yapıştırıcı
+YP-PVC-250,PVC Yapıştırıcı 250 gr,adet,8694006335338,silikon/yapıştırıcı
+YP-SPR-400,Sprey Yapıştırıcı 400 ml,adet,8694006414521,silikon/yapıştırıcı
+MU-SDS-05110,SDS Plus Beton Matkap Ucu 5x110,adet,8694006493717,matkap ucu
+MU-SDS-06110,SDS Plus Beton Matkap Ucu 6x110,adet,8694006572900,matkap ucu
+MU-SDS-06160,SDS Plus Beton Matkap Ucu 6x160,adet,8694006652091,matkap ucu
+MU-SDS-08110,SDS Plus Beton Matkap Ucu 8x110,adet,8694006731284,matkap ucu
+MU-SDS-08160,SDS Plus Beton Matkap Ucu 8x160,adet,8694006810477,matkap ucu
+MU-SDS-10160,SDS Plus Beton Matkap Ucu 10x160,adet,8694006889664,matkap ucu
+MU-SDS-12160,SDS Plus Beton Matkap Ucu 12x160,adet,8694006968857,matkap ucu
+MU-SDS-14210,SDS Plus Beton Matkap Ucu 14x210,adet,8694007048046,matkap ucu
+MU-SDS-16210,SDS Plus Beton Matkap Ucu 16x210,adet,8694007127239,matkap ucu
+MU-HSS-002,Metal Matkap Ucu HSS 2 mm,adet,8694007206422,matkap ucu
+MU-HSS-025,Metal Matkap Ucu HSS 2.5 mm,adet,8694007285618,matkap ucu
+MU-HSS-003,Metal Matkap Ucu HSS 3 mm,adet,8694007364801,matkap ucu
+MU-HSS-035,Metal Matkap Ucu HSS 3.5 mm,adet,8694007443995,matkap ucu
+MU-HSS-004,Metal Matkap Ucu HSS 4 mm,adet,8694007523185,matkap ucu
+MU-HSS-045,Metal Matkap Ucu HSS 4.5 mm,adet,8694007602378,matkap ucu
+MU-HSS-005,Metal Matkap Ucu HSS 5 mm,adet,8694007681564,matkap ucu
+MU-HSS-006,Metal Matkap Ucu HSS 6 mm,adet,8694007760757,matkap ucu
+MU-HSS-008,Metal Matkap Ucu HSS 8 mm,adet,8694007839941,matkap ucu
+MU-HSS-010,Metal Matkap Ucu HSS 10 mm,adet,8694007919131,matkap ucu
+MU-HSS-012,Metal Matkap Ucu HSS 12 mm,adet,8694007998327,matkap ucu
+MU-AHS-06,Ahşap Matkap Ucu 6 mm,adet,8694008077519,matkap ucu
+MU-AHS-08,Ahşap Matkap Ucu 8 mm,adet,8694008156702,matkap ucu
+MU-AHS-10,Ahşap Matkap Ucu 10 mm,adet,8694008235896,matkap ucu
+MU-AHS-12,Ahşap Matkap Ucu 12 mm,adet,8694008315086,matkap ucu
+MU-SRM-06,Seramik ve Cam Matkap Ucu 6 mm,adet,8694008394272,matkap ucu
+MU-SRM-08,Seramik ve Cam Matkap Ucu 8 mm,adet,8694008473465,matkap ucu
+MU-SET-HSS13,HSS Metal Matkap Ucu Seti 13 Parça,takım,8694008552658,matkap ucu
+MU-SET-BTN5,Beton Matkap Ucu Seti 5 Parça,takım,8694008631841,matkap ucu
+MU-PNC-68,Buat Panç Delik Açma Ucu 68 mm,adet,8694008711031,matkap ucu
+MU-KRC-SVR,SDS Plus Kırıcı Uç Sivri 250 mm,adet,8694008790227,matkap ucu
+MU-KRC-YSS,SDS Plus Kırıcı Uç Yassı 250 mm,adet,8694008869411,matkap ucu
+MU-BTS-PH2,Bits Uç PH2 50 mm (10'lu paket),paket,8694008948604,matkap ucu
+EA-CKC-300,Çekiç 300 gr,adet,8694009027797,el aleti
+EA-CKC-500,Çekiç 500 gr,adet,8694009106980,el aleti
+EA-TKM-LST,Lastik Tokmak 450 gr,adet,8694009186173,el aleti
+EA-KSR-600,Marangoz Keseri 600 gr,adet,8694009265366,el aleti
+EA-TRN-DZ6,Düz Tornavida 6x100 mm,adet,8694009344559,el aleti
+EA-TRN-DZ4,Düz Tornavida 4x100 mm,adet,8694009423742,el aleti
+EA-TRN-PH1,Yıldız Tornavida PH1x80 mm,adet,8694009502935,el aleti
+EA-TRN-PH2,Yıldız Tornavida PH2x100 mm,adet,8694009582128,el aleti
+EA-TRN-SET6,Tornavida Seti 6 Parça,takım,8694009661311,el aleti
+EA-TRN-KNT,Kontrol Kalemi,adet,8694009740504,el aleti
+EA-PNS-180,Pense 180 mm,adet,8694009819699,el aleti
+EA-KRG-160,Kargaburun Pense 160 mm,adet,8694009898885,el aleti
+EA-YNK-160,Yan Keski 160 mm,adet,8694009978075,el aleti
+EA-KRP-200,Kerpeten 200 mm,adet,8694010057264,el aleti
+EA-AYR-10,Ayarlı Anahtar Kurbağacık 10 inç,adet,8694010136457,el aleti
+EA-AYR-12,Ayarlı Anahtar Kurbağacık 12 inç,adet,8694010215640,el aleti
+EA-BRA-14,Boru Anahtarı 14 inç,adet,8694010294836,el aleti
+EA-ACK-SET8,Açık Ağızlı Anahtar Takımı 8 Parça,takım,8694010374026,el aleti
+EA-LKM-24,Lokma Takımı 1/2 inç 24 Parça,takım,8694010453219,el aleti
+EA-ALY-SET9,Alyan Anahtar Takımı 9 Parça,takım,8694010532402,el aleti
+EA-MTR-3,Şerit Metre 3 m,adet,8694010611596,el aleti
+EA-MTR-5,Şerit Metre 5 m,adet,8694010690782,el aleti
+EA-MTR-8,Şerit Metre 8 m,adet,8694010769976,el aleti
+EA-TRZ-60,Su Terazisi 60 cm,adet,8694010849166,el aleti
+EA-TRZ-100,Su Terazisi 100 cm,adet,8694010928359,el aleti
+EA-MKT-18,Maket Bıçağı Geniş 18 mm,adet,8694011007541,el aleti
+EA-MKT-YDK,Maket Bıçağı Yedeği 18 mm (10'lu paket),paket,8694011086737,el aleti
+EA-TST-DMR,Demir Testeresi 300 mm,adet,8694011165920,el aleti
+EA-TST-AHS,Ahşap Testeresi 450 mm,adet,8694011245110,el aleti
+EA-SPT-8,Spatula 8 cm,adet,8694011324303,el aleti
+EA-MLA-TRP,Trapez Mala,adet,8694011403497,el aleti
+EA-TBN-SLK,Silikon Tabancası,adet,8694011482683,el aleti
+EA-TBN-PRC,Perçin Tabancası,adet,8694011561876,el aleti
+EA-TBN-ZMB,Zımba Tabancası,adet,8694011641066,el aleti
+EA-ZMB-10,Zımba Teli 10 mm (1000'li kutu),kutu,8694011720259,el aleti
+EA-EGE-200,Yassı Eğe 200 mm,adet,8694011799446,el aleti
+EA-TLF-ELD,El Tel Fırçası,adet,8694011878639,el aleti
+EA-KLM-KRS,Kurşun Kalem Marangoz,adet,8694011957822,el aleti
+EA-KLP-100,Mengene Kıskacı 100 mm,adet,8694012037011,el aleti
+EA-TKM-SET,El Aleti Takım Çantası 108 Parça,takım,8694012116204,el aleti
+BY-IC-BYZ-25,İç Cephe Plastik Boya Beyaz 2.5 lt,adet,8694012195391,boya
+BY-IC-BYZ-75,İç Cephe Plastik Boya Beyaz 7.5 lt,adet,8694012274584,boya
+BY-IC-BYZ-15,İç Cephe Plastik Boya Beyaz 15 lt,adet,8694012353777,boya
+BY-TVN-35,Tavan Boyası Beyaz 3.5 kg,adet,8694012432960,boya
+BY-TVN-10,Tavan Boyası Beyaz 10 kg,adet,8694012512150,boya
+BY-TVN-20,Tavan Boyası Beyaz 20 kg,adet,8694012591346,boya
+BY-DIS-BYZ-15,Dış Cephe Boyası Beyaz 15 lt,adet,8694012670539,boya
+BY-AST-75,Su Bazlı İç Cephe Astarı 7.5 lt,adet,8694012749723,boya
+BY-SNT-BYZ-075,Sentetik Yağlı Boya Beyaz 0.75 lt,adet,8694012828916,boya
+BY-SNT-BYZ-25,Sentetik Yağlı Boya Beyaz 2.5 lt,adet,8694012908106,boya
+BY-SNT-SYH-075,Sentetik Yağlı Boya Siyah 0.75 lt,adet,8694012987293,boya
+BY-SNT-KRM-075,Sentetik Yağlı Boya Kırmızı 0.75 lt,adet,8694013066485,boya
+BY-ANT-GRI-075,Antipas Gri 0.75 lt,adet,8694013145678,boya
+BY-ANT-GRI-25,Antipas Gri 2.5 lt,adet,8694013224861,boya
+BY-TNR-SLZ-3,Selülozik Tiner 3 lt,adet,8694013304051,boya
+BY-TNR-SNT-1,Sentetik Tiner 1 lt,adet,8694013383247,boya
+BY-SPR-SYH,Sprey Boya Siyah Mat 400 ml,adet,8694013462430,boya
+BY-SPR-BYZ,Sprey Boya Beyaz Parlak 400 ml,adet,8694013541623,boya
+BY-SPR-GMS,Sprey Boya Gümüş 400 ml,adet,8694013620816,boya
+BY-SPR-KRM,Sprey Boya Kırmızı 400 ml,adet,8694013700006,boya
+BY-VRN-075,Selülozik Vernik Parlak 0.75 lt,adet,8694013779194,boya
+BY-AHS-KRY-25,Ahşap Koruyucu Ceviz 2.5 lt,adet,8694013858387,boya
+BY-FRC-50,Boya Fırçası 50 mm,adet,8694013937570,boya
+BY-FRC-75,Boya Fırçası 75 mm,adet,8694014016762,boya
+BY-RLO-25,Boya Rulosu 25 cm,adet,8694014095958,boya
+BY-RLO-10,Mini Boya Rulosu 10 cm,adet,8694014175148,boya
+BY-RLO-YDK,Boya Rulosu Yedeği 25 cm,adet,8694014254331,boya
+BY-TKN-PLS,Boya Teknesi Plastik,adet,8694014333524,boya
+BY-MSK-48,Maskeleme Bandı 48 mm x 40 m,rulo,8694014412717,boya
+BY-MSK-24,Maskeleme Bandı 24 mm x 40 m,rulo,8694014491903,boya
+BY-NYL-4X5,Örtü Naylonu 4x5 m,adet,8694014571094,boya
+BY-MCN-20,Hazır Macun 20 kg,adet,8694014650287,boya
+BY-ALC-STN-25,Saten Alçı 25 kg,çuval,8694014729471,boya
+BY-ALC-SVA-35,Sıva Alçısı 35 kg,çuval,8694014808664,boya
+BY-KTR-25,Kartonpiyer Yapıştırıcısı 25 kg,çuval,8694014887850,boya
+EL-NYA-15,NYA Kablo 1.5 mm2 (100 m top),top,8694014967040,elektrik
+EL-NYA-25,NYA Kablo 2.5 mm2 (100 m top),top,8694015046232,elektrik
+EL-NYA-40,NYA Kablo 4 mm2 (100 m top),top,8694015125425,elektrik
+EL-TTR-315,TTR Kablo 3x1.5 mm2,metre,8694015204618,elektrik
+EL-TTR-325,TTR Kablo 3x2.5 mm2,metre,8694015283804,elektrik
+EL-TTR-275,TTR Kablo 2x0.75 mm2,metre,8694015362998,elektrik
+EL-PRZ-TPR,Sıva Altı Topraklı Priz Beyaz,adet,8694015442188,elektrik
+EL-PRZ-CFT,Sıva Altı İkili Topraklı Priz Beyaz,adet,8694015521371,elektrik
+EL-ANH-TKL,Sıva Altı Anahtar Tekli Beyaz,adet,8694015600564,elektrik
+EL-ANH-KMT,Sıva Altı Komütatör Beyaz,adet,8694015679751,elektrik
+EL-PRZ-SVU,Sıva Üstü Topraklı Priz Beyaz,adet,8694015758944,elektrik
+EL-BUT-SVA,Sıva Altı Buat Kapaklı,adet,8694015838134,elektrik
+EL-BUT-SVU,Sıva Üstü Buat 100x100,adet,8694015917327,elektrik
+EL-KNL-1616,Kablo Kanalı 16x16 mm (2 m),adet,8694015996513,elektrik
+EL-KNL-2510,Kablo Kanalı 25x16 mm (2 m),adet,8694016075705,elektrik
+EL-SGT-10,Otomatik Sigorta 10A,adet,8694016154899,elektrik
+EL-SGT-16,Otomatik Sigorta 16A,adet,8694016234089,elektrik
+EL-SGT-25,Otomatik Sigorta 25A,adet,8694016313272,elektrik
+EL-KAR-40,Kaçak Akım Rölesi 40A 30mA,adet,8694016392468,elektrik
+EL-GRP-3,Grup Priz 3'lü Topraklı 1.5 m Kablolu,adet,8694016471651,elektrik
+EL-GRP-5,Grup Priz 5'li Topraklı 3 m Kablolu,adet,8694016550844,elektrik
+EL-LED-9,LED Ampul 9W E27 Beyaz Işık,adet,8694016630034,elektrik
+EL-LED-12,LED Ampul 12W E27 Beyaz Işık,adet,8694016709228,elektrik
+EL-LED-15,LED Ampul 15W E27 Beyaz Işık,adet,8694016788414,elektrik
+EL-LED-9G,LED Ampul 9W E27 Günışığı,adet,8694016867607,elektrik
+EL-DUY-E27,Porselen Duy E27,adet,8694016946791,elektrik
+EL-DUY-PLS,Plastik Sarkıt Duy E27,adet,8694017025983,elektrik
+EL-IZB-SYH,İzole Bant Siyah 10 m,adet,8694017105173,elektrik
+EL-IZB-KRM,İzole Bant Kırmızı 10 m,adet,8694017184369,elektrik
+EL-KBG-200,Kablo Bağı 200 mm Beyaz (100'lü paket),paket,8694017263552,elektrik
+EL-KBG-300,Kablo Bağı 300 mm Siyah (100'lü paket),paket,8694017342745,elektrik
+EL-KLM-6,Klemens 12'li 6 mm2,adet,8694017421938,elektrik
+EL-KLM-WG3,Buat Klemensi 3'lü (50'li paket),paket,8694017501128,elektrik
+EL-UZT-5,Uzatma Kablosu 5 m Topraklı,adet,8694017580314,elektrik
+EL-FIS-TPR,Topraklı Fiş,adet,8694017659508,elektrik
+EL-SPR-16,Spiral Boru 16 mm (100 m top),top,8694017738692,elektrik
+EL-SPR-20,Spiral Boru 20 mm (100 m top),top,8694017817885,elektrik
+EL-PNL-18,LED Panel Sıva Üstü 18W,adet,8694017897078,elektrik
+EL-DDK-SET,Duvar Tipi Zil Seti,takım,8694017976261,elektrik
+EL-KBP-SET,Kablo Pabucu Seti 200 Parça,takım,8694018055453,elektrik
+ST-PPR-B20,PPRC Boru 20 mm (4 m),adet,8694018134646,sıhhi tesisat
+ST-PPR-B25,PPRC Boru 25 mm (4 m),adet,8694018213839,sıhhi tesisat
+ST-PPR-B32,PPRC Boru 32 mm (4 m),adet,8694018293022,sıhhi tesisat
+ST-PPR-D20,PPRC Dirsek 20 mm,adet,8694018372215,sıhhi tesisat
+ST-PPR-D25,PPRC Dirsek 25 mm,adet,8694018451408,sıhhi tesisat
+ST-PPR-T20,PPRC Te 20 mm,adet,8694018530592,sıhhi tesisat
+ST-PPR-T25,PPRC Te 25 mm,adet,8694018609786,sıhhi tesisat
+ST-PPR-M20,PPRC Manşon 20 mm,adet,8694018688972,sıhhi tesisat
+ST-PPR-M25,PPRC Manşon 25 mm,adet,8694018768162,sıhhi tesisat
+ST-PPR-V20,PPRC Küresel Vana 20 mm,adet,8694018847355,sıhhi tesisat
+ST-PPR-V25,PPRC Küresel Vana 25 mm,adet,8694018926548,sıhhi tesisat
+ST-KVN-12,Küresel Vana 1/2 inç,adet,8694019005730,sıhhi tesisat
+ST-KVN-34,Küresel Vana 3/4 inç,adet,8694019084926,sıhhi tesisat
+ST-PVC-50-1,PVC Atık Su Borusu 50 mm 1 m,adet,8694019164116,sıhhi tesisat
+ST-PVC-50-2,PVC Atık Su Borusu 50 mm 2 m,adet,8694019243309,sıhhi tesisat
+ST-PVC-100-3,PVC Atık Su Borusu 100 mm 3 m,adet,8694019322493,sıhhi tesisat
+ST-PVC-D50,PVC Dirsek 50 mm 45 Derece,adet,8694019401686,sıhhi tesisat
+ST-PVC-D100,PVC Dirsek 100 mm 87 Derece,adet,8694019480872,sıhhi tesisat
+ST-PVC-T50,PVC Te 50 mm,adet,8694019560062,sıhhi tesisat
+ST-SFN-LVB,Lavabo Sifonu,adet,8694019639256,sıhhi tesisat
+ST-SFN-EVY,Evye Sifonu Tekli,adet,8694019718449,sıhhi tesisat
+ST-SZG-10,Yer Süzgeci 10x10 cm,adet,8694019797635,sıhhi tesisat
+ST-BAT-LVB,Lavabo Bataryası,adet,8694019876828,sıhhi tesisat
+ST-BAT-EVY,Evye Bataryası,adet,8694019956018,sıhhi tesisat
+ST-MSL-BHC,Bahçe Musluğu 1/2 inç,adet,8694020035207,sıhhi tesisat
+ST-MSL-ARA,Ara Musluk 1/2 inç,adet,8694020114391,sıhhi tesisat
+ST-FLX-40,Fleks Hortum 40 cm,adet,8694020193587,sıhhi tesisat
+ST-FLX-50,Fleks Hortum 50 cm,adet,8694020272770,sıhhi tesisat
+ST-FLX-60,Fleks Hortum 60 cm,adet,8694020351963,sıhhi tesisat
+ST-TFL-12,Teflon Bant 12 mm x 10 m,adet,8694020431153,sıhhi tesisat
+ST-KTN-100,Tesisat Keteni 100 gr,adet,8694020510346,sıhhi tesisat
+ST-NPL-12,Galvaniz Nipel 1/2 inç,adet,8694020589533,sıhhi tesisat
+ST-TPA-12,Galvaniz Kör Tapa 1/2 inç,adet,8694020668726,sıhhi tesisat
+ST-RKR-12,Rakor 1/2 inç,adet,8694020747919,sıhhi tesisat
+ST-KLZ-ICT,Klozet İç Takımı,takım,8694020827109,sıhhi tesisat
+ST-DUS-BSL,Duş Başlığı Krom,adet,8694020906293,sıhhi tesisat
+ST-DUS-HRT,Duş Hortumu 150 cm,adet,8694020985489,sıhhi tesisat
+ST-KLP-20,Boru Kelepçesi 20 mm (Tekli),adet,8694021064671,sıhhi tesisat
+ST-CNT-SET,Musluk Contası Seti,takım,8694021143864,sıhhi tesisat
+ZM-SU-060,Su Zımparası 60 Kum,adet,8694021223054,zımpara
+ZM-SU-080,Su Zımparası 80 Kum,adet,8694021302247,zımpara
+ZM-SU-100,Su Zımparası 100 Kum,adet,8694021381433,zımpara
+ZM-SU-120,Su Zımparası 120 Kum,adet,8694021460626,zımpara
+ZM-SU-150,Su Zımparası 150 Kum,adet,8694021539810,zımpara
+ZM-SU-180,Su Zımparası 180 Kum,adet,8694021619000,zımpara
+ZM-SU-240,Su Zımparası 240 Kum,adet,8694021698197,zımpara
+ZM-SU-400,Su Zımparası 400 Kum,adet,8694021777380,zımpara
+ZM-SU-600,Su Zımparası 600 Kum,adet,8694021856573,zımpara
+ZM-SU-800,Su Zımparası 800 Kum,adet,8694021935766,zımpara
+ZM-RLO-080,Rulo Zımpara 115 mm x 50 m 80 Kum,rulo,8694022014958,zımpara
+ZM-RLO-120,Rulo Zımpara 115 mm x 50 m 120 Kum,rulo,8694022094141,zımpara
+ZM-FLP-060,Flap Disk 115 mm 60 Kum,adet,8694022173334,zımpara
+ZM-FLP-080,Flap Disk 115 mm 80 Kum,adet,8694022252527,zımpara
+ZM-FLP-120,Flap Disk 115 mm 120 Kum,adet,8694022331710,zımpara
+ZM-SNG-120,Zımpara Süngeri 120 Kum,adet,8694022410903,zımpara
+ZM-KSD-115,Metal Kesme Diski 115x1 mm,adet,8694022490097,zımpara
+ZM-KSD-230,Metal Kesme Diski 230x2 mm,adet,8694022569281,zımpara
+ZM-KSD-TAS,Taş Kesme Diski 230 mm,adet,8694022648474,zımpara
+ZM-TSL-115,Taşlama Diski 115x6 mm,adet,8694022727667,zımpara
+ZM-CNK-75,Çanak Tel Fırça 75 mm,adet,8694022806850,zımpara
+ZM-KGT-120,Kağıt Zımpara 120 Kum (50'li paket),paket,8694022886043,zımpara
+IG-ELD-NTR,Nitril Kaplı İş Eldiveni,çift,8694022965236,iş güvenliği
+IG-ELD-LTK,Lateks Kaplı İş Eldiveni,çift,8694023044428,iş güvenliği
+IG-ELD-KYN,Kaynakçı Eldiveni,çift,8694023123611,iş güvenliği
+IG-ELD-TKL,Tek Kullanımlık Nitril Eldiven (100'lü kutu),kutu,8694023202804,iş güvenliği
+IG-GZL-SFF,Koruyucu Gözlük Şeffaf,adet,8694023281991,iş güvenliği
+IG-GZL-FME,Koruyucu Gözlük Füme,adet,8694023361181,iş güvenliği
+IG-MSK-FF2,Toz Maskesi FFP2 Ventilli,adet,8694023440374,iş güvenliği
+IG-MSK-FF3,Toz Maskesi FFP3 Ventilli,adet,8694023519568,iş güvenliği
+IG-BRT-BYZ,Baret Beyaz,adet,8694023598754,iş güvenliği
+IG-BRT-SRI,Baret Sarı,adet,8694023677947,iş güvenliği
+IG-YLK-SRI,Reflektörlü İkaz Yeleği Sarı,adet,8694023757137,iş güvenliği
+IG-YLK-TRN,Reflektörlü İkaz Yeleği Turuncu,adet,8694023836320,iş güvenliği
+IG-AYK-S1P-41,İş Ayakkabısı Çelik Burunlu S1P 41 Numara,çift,8694023915513,iş güvenliği
+IG-AYK-S1P-42,İş Ayakkabısı Çelik Burunlu S1P 42 Numara,çift,8694023994709,iş güvenliği
+IG-AYK-S1P-43,İş Ayakkabısı Çelik Burunlu S1P 43 Numara,çift,8694024073892,iş güvenliği
+IG-AYK-S1P-44,İş Ayakkabısı Çelik Burunlu S1P 44 Numara,çift,8694024153082,iş güvenliği
+IG-KLK-TKC,Kulak Tıkacı Köpük (50 çift kutu),kutu,8694024232275,iş güvenliği
+IG-KLK-MNS,Manşonlu Kulaklık,adet,8694024311468,iş güvenliği
+IG-SRT-7,İkaz Şeridi Kırmızı Beyaz 7 cm x 200 m,rulo,8694024390654,iş güvenliği
+IG-DZL-01,Dizlik Jel,çift,8694024469848,iş güvenliği
+IG-SPR-YUZ,Yüz Siperi Şeffaf,adet,8694024549038,iş güvenliği
+IG-KMR-EMN,Paraşüt Tipi Emniyet Kemeri,adet,8694024628221,iş güvenliği
+IG-TLM-XL,İş Tulumu Lacivert XL,adet,8694024707414,iş güvenliği
+IG-TLM-L,İş Tulumu Lacivert L,adet,8694024786600,iş güvenliği
+IG-ILK-CNT,İlk Yardım Çantası,adet,8694024865794,iş güvenliği
+ELLE-GIRILECEK,Katalogda yok - elle girilecek,adet,,diğer

@@ -1,0 +1,38 @@
+{
+  "lines": [
+    {
+      "quantity": 50,
+      "unit": "adet",
+      "sku": "ST-PPR-B20"
+    },
+    {
+      "quantity": 40,
+      "unit": "adet",
+      "sku": "ST-PPR-D20"
+    },
+    {
+      "quantity": 25,
+      "unit": "adet",
+      "sku": "ST-PPR-T20"
+    },
+    {
+      "quantity": 10,
+      "unit": "adet",
+      "sku": "ST-PPR-V20"
+    },
+    {
+      "quantity": 20,
+      "unit": "adet",
+      "sku": "ST-TFL-12"
+    },
+    {
+      "quantity": 12,
+      "unit": "adet",
+      "sku": "ST-FLX-60"
+    }
+  ],
+  "maskedFields": [
+    "email",
+    "phone"
+  ]
+}

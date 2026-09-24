@@ -1,0 +1,22 @@
+{
+  "lines": [
+    {
+      "quantity": 1,
+      "unit": "adet",
+      "sku": null
+    },
+    {
+      "quantity": 4,
+      "unit": "torba",
+      "sku": "BY-ALC-STN-25"
+    },
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": "BY-TVN-10"
+    }
+  ],
+  "maskedFields": [
+    "phone"
+  ]
+}

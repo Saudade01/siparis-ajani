@@ -1,0 +1,12 @@
+Merhaba,
+
+Bireysel müşterimiz için fatura bilgileri: Ad Soyad Örnek Kişi, TCKN 23456789012, e-posta ornek.kisi@example.com
+
+Ürünler:
+1- Lavabo bataryası 1 adet
+2- Lavabo sifonu 1 adet
+3- Fleks hortum 40 cm 2 adet
+4- Küresel vana 1/2" 2 adet
+5- Klozet iç takımı 1 takım
+
+Saygılar

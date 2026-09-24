@@ -1,0 +1,30 @@
+{
+  "lines": [
+    {
+      "quantity": 4,
+      "unit": "kova",
+      "sku": "BY-IC-BYZ-15"
+    },
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": "BY-TVN-20"
+    },
+    {
+      "quantity": 5,
+      "unit": "adet",
+      "sku": "BY-FRC-75"
+    },
+    {
+      "quantity": 3,
+      "unit": "adet",
+      "sku": "BY-RLO-25"
+    },
+    {
+      "quantity": 1,
+      "unit": "koli",
+      "sku": null
+    }
+  ],
+  "maskedFields": []
+}

@@ -1,0 +1,38 @@
+{
+  "lines": [
+    {
+      "quantity": 50,
+      "unit": "çift",
+      "sku": "IG-ELD-NTR"
+    },
+    {
+      "quantity": 20,
+      "unit": "adet",
+      "sku": "IG-MSK-FF2"
+    },
+    {
+      "quantity": 10,
+      "unit": "adet",
+      "sku": "IG-BRT-SRI"
+    },
+    {
+      "quantity": 10,
+      "unit": "adet",
+      "sku": "IG-YLK-SRI"
+    },
+    {
+      "quantity": 5,
+      "unit": "kutu",
+      "sku": "IG-KLK-TKC"
+    },
+    {
+      "quantity": 2,
+      "unit": "rulo",
+      "sku": "IG-SRT-7"
+    }
+  ],
+  "maskedFields": [
+    "iban",
+    "phone"
+  ]
+}

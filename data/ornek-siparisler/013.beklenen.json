@@ -1,0 +1,20 @@
+{
+  "lines": [
+    {
+      "quantity": 1,
+      "unit": null,
+      "sku": "YP-KNT-850"
+    },
+    {
+      "quantity": 1,
+      "unit": null,
+      "sku": "EA-TBN-SLK"
+    },
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": "EA-MKT-YDK"
+    }
+  ],
+  "maskedFields": []
+}

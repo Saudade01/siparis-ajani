@@ -1,0 +1,33 @@
+{
+  "lines": [
+    {
+      "quantity": 1,
+      "unit": "adet",
+      "sku": "ST-BAT-LVB"
+    },
+    {
+      "quantity": 1,
+      "unit": "adet",
+      "sku": "ST-SFN-LVB"
+    },
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": "ST-FLX-40"
+    },
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": "ST-KVN-12"
+    },
+    {
+      "quantity": 1,
+      "unit": "takım",
+      "sku": "ST-KLZ-ICT"
+    }
+  ],
+  "maskedFields": [
+    "nationalId",
+    "email"
+  ]
+}

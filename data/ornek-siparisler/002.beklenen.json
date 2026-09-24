@@ -1,0 +1,25 @@
+{
+  "lines": [
+    {
+      "quantity": 3,
+      "unit": "kutu",
+      "sku": "VD-4050-SNT"
+    },
+    {
+      "quantity": 5,
+      "unit": "paket",
+      "sku": "DB-08-PLS"
+    },
+    {
+      "quantity": 2,
+      "unit": "paket",
+      "sku": "DB-10-PLS"
+    },
+    {
+      "quantity": 12,
+      "unit": "adet",
+      "sku": "SL-280-BYZ"
+    }
+  ],
+  "maskedFields": []
+}

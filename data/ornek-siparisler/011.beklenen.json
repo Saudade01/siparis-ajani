@@ -1,0 +1,25 @@
+{
+  "lines": [
+    {
+      "quantity": 3,
+      "unit": "adet",
+      "sku": "YP-HZL-20"
+    },
+    {
+      "quantity": 2,
+      "unit": "paket",
+      "sku": "DB-0640-CKM"
+    },
+    {
+      "quantity": 1,
+      "unit": "adet",
+      "sku": "ST-FLX-50"
+    },
+    {
+      "quantity": 5,
+      "unit": "adet",
+      "sku": null
+    }
+  ],
+  "maskedFields": []
+}

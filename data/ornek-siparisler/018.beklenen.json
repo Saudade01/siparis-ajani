@@ -1,0 +1,20 @@
+{
+  "lines": [
+    {
+      "quantity": 15,
+      "unit": "paket",
+      "sku": "DB-12-PLS"
+    },
+    {
+      "quantity": 6,
+      "unit": "adet",
+      "sku": "SL-280-SEF"
+    },
+    {
+      "quantity": 3,
+      "unit": "kutu",
+      "sku": "VD-3535-ALC"
+    }
+  ],
+  "maskedFields": []
+}

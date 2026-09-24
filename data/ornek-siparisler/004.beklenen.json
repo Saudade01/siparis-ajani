@@ -1,0 +1,20 @@
+{
+  "lines": [
+    {
+      "quantity": 2,
+      "unit": "koli",
+      "sku": null
+    },
+    {
+      "quantity": 2,
+      "unit": "kutu",
+      "sku": "VD-4216-AKL"
+    },
+    {
+      "quantity": 3,
+      "unit": "paket",
+      "sku": "DB-06-PLS"
+    }
+  ],
+  "maskedFields": []
+}

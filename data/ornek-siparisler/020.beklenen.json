@@ -1,0 +1,32 @@
+{
+  "lines": [
+    {
+      "quantity": 5,
+      "unit": "kutu",
+      "sku": "VD-5050-SNT"
+    },
+    {
+      "quantity": 10,
+      "unit": "paket",
+      "sku": "DB-10-PLS"
+    },
+    {
+      "quantity": 3,
+      "unit": "adet",
+      "sku": "BY-IC-BYZ-75"
+    },
+    {
+      "quantity": 1,
+      "unit": "adet",
+      "sku": "BY-AST-75"
+    },
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": null
+    }
+  ],
+  "maskedFields": [
+    "phone"
+  ]
+}

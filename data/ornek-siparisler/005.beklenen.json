@@ -1,0 +1,37 @@
+{
+  "lines": [
+    {
+      "quantity": 3,
+      "unit": "top",
+      "sku": "EL-NYA-25"
+    },
+    {
+      "quantity": 2,
+      "unit": "top",
+      "sku": "EL-NYA-15"
+    },
+    {
+      "quantity": 10,
+      "unit": "adet",
+      "sku": "EL-SGT-16"
+    },
+    {
+      "quantity": 2,
+      "unit": "adet",
+      "sku": "EL-KAR-40"
+    },
+    {
+      "quantity": 25,
+      "unit": "adet",
+      "sku": "EL-PRZ-TPR"
+    },
+    {
+      "quantity": 30,
+      "unit": "adet",
+      "sku": null
+    }
+  ],
+  "maskedFields": [
+    "iban"
+  ]
+}
