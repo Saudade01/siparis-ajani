@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: .NET SDK'yı kur
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           global-json-file: global.json
 
