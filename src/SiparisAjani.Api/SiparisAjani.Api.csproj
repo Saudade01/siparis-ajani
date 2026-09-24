@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Anthropic:ApiKey geliştirici makinesinde user-secrets ile tutulur; repoya anahtar girmez. -->
+    <UserSecretsId>57fd83ee-d686-4c63-ad6e-926ebbd0548f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SiparisAjani.Infrastructure\SiparisAjani.Infrastructure.csproj" />
+    <ProjectReference Include="..\SiparisAjani.Contracts\SiparisAjani.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

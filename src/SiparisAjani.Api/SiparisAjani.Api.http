@@ -1,0 +1,6 @@
+@SiparisAjani.Api_HostAddress = http://localhost:5064
+
+GET {{SiparisAjani.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
