@@ -1,0 +1,28 @@
+@page "/Error"
+@using System.Diagnostics
+
+<PageTitle>Hata · SiparisAjani</PageTitle>
+
+<div class="stack">
+    <h1>Bir hata oluştu</h1>
+    <p>İsteğiniz işlenirken beklenmeyen bir sorun çıktı. Sayfayı yenileyip tekrar deneyin.</p>
+
+    @if (ShowRequestId)
+    {
+        <p class="meta">Hata kaydı numarası: <code>@RequestId</code></p>
+    }
+
+    <p><a href="">Sipariş sayfasına dön</a></p>
+</div>
+
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    private string? RequestId { get; set; }
+
+    private bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
+    protected override void OnInitialized() =>
+        RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
+}

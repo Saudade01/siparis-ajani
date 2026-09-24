@@ -1,0 +1,18 @@
+<div class="notice notice--@Kind.ToString().ToLowerInvariant()" role="@(Kind == NoticeKind.Error ? "alert" : null)">
+    @if (!string.IsNullOrWhiteSpace(Title))
+    {
+        <p class="notice-title">@Title</p>
+    }
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public NoticeKind Kind { get; set; } = NoticeKind.Info;
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

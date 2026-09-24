@@ -1,0 +1,146 @@
+<section class="card" aria-labelledby="order-input-heading">
+    <h2 id="order-input-heading" class="visually-hidden">Sipariş metni</h2>
+
+    <fieldset class="segmented">
+        <legend class="field-label">Sipariş nereden geldi?</legend>
+        <div class="segmented-options">
+            @foreach (SourceOption option in SourceOptions)
+            {
+                <label class="segmented-option">
+                    <input type="radio"
+                           name="order-source"
+                           value="@option.Source"
+                           checked="@(_source == option.Source)"
+                           @onchange="() => _source = option.Source" />
+                    <span>@option.Label</span>
+                </label>
+            }
+        </div>
+    </fieldset>
+
+    <div class="field">
+        <div class="field-row">
+            <label for="order-text" class="field-label">Sipariş metni</label>
+            <span class="hint @(IsTooLong ? "hint--error" : null)">
+                @DisplayFormat.Number(_text.Length) / @DisplayFormat.Number(MaxTextLength) karakter
+            </span>
+        </div>
+        <textarea id="order-text"
+                  class="textarea"
+                  rows="10"
+                  spellcheck="false"
+                  placeholder="Müşterinin mesajını buraya yapıştırın…"
+                  aria-describedby="order-text-help"
+                  aria-invalid="@(_validationError is null ? "false" : "true")"
+                  @bind="_text"
+                  @bind:event="oninput"
+                  @bind:after="ClearValidation"></textarea>
+        <p id="order-text-help" class="hint">
+            WhatsApp mesajını, e-postayı ya da telefon notunu olduğu gibi yapıştırın.
+            Telefon, e-posta, IBAN, TC kimlik numarası ve isimler çözümlemeden önce gizlenir.
+        </p>
+    </div>
+
+    @if (DisplayedError is not null)
+    {
+        <Notice Kind="NoticeKind.Error">
+            <p>@DisplayedError</p>
+        </Notice>
+    }
+
+    <div class="actions">
+        <button type="button"
+                class="btn btn-primary btn-lg"
+                disabled="@(!RendererInfo.IsInteractive || IsBusy)"
+                @onclick="SubmitAsync">
+            @(IsBusy ? "Çözümleniyor…" : "Çözümle")
+        </button>
+        <button type="button"
+                class="btn btn-secondary"
+                disabled="@(!RendererInfo.IsInteractive || IsBusy)"
+                @onclick="FillSample">
+            Örnek sipariş doldur
+        </button>
+        @if (_text.Length > 0)
+        {
+            <button type="button"
+                    class="btn btn-ghost"
+                    disabled="@(!RendererInfo.IsInteractive || IsBusy)"
+                    @onclick="Clear">
+                Temizle
+            </button>
+        }
+    </div>
+</section>
+
+@code {
+    public const int MaxTextLength = 20_000;
+
+    private static readonly SourceOption[] SourceOptions =
+    [
+        new(OrderSource.WhatsApp, "WhatsApp"),
+        new(OrderSource.Email, "E-posta"),
+        new(OrderSource.Phone, "Telefon notu"),
+        new(OrderSource.Other, "Diğer")
+    ];
+
+    private string _text = string.Empty;
+    private OrderSource _source = OrderSource.WhatsApp;
+    private string? _validationError;
+    private int _nextSampleIndex;
+
+    /// <summary>Çözümleme sürüyor.</summary>
+    [Parameter]
+    public bool IsBusy { get; set; }
+
+    /// <summary>Sunucudan gelen hata mesajı.</summary>
+    [Parameter]
+    public string? Error { get; set; }
+
+    [Parameter]
+    public EventCallback<ParseOrderRequest> OnSubmit { get; set; }
+
+    private bool IsTooLong => _text.Length > MaxTextLength;
+
+    private string? DisplayedError => _validationError ?? Error;
+
+    private async Task SubmitAsync()
+    {
+        if (string.IsNullOrWhiteSpace(_text))
+        {
+            _validationError = "Önce sipariş metnini yapıştırın.";
+            return;
+        }
+
+        if (IsTooLong)
+        {
+            _validationError = $"Metin çok uzun. En fazla {DisplayFormat.Number(MaxTextLength)} karakter olabilir, şu an {DisplayFormat.Number(_text.Length)} karakter.";
+            return;
+        }
+
+        _validationError = null;
+        await OnSubmit.InvokeAsync(new ParseOrderRequest(_text, _source));
+    }
+
+    private void FillSample()
+    {
+        SampleOrder sample = SampleOrders[_nextSampleIndex % SampleOrders.Length];
+        _nextSampleIndex++;
+        _text = sample.Text;
+        _source = sample.Source;
+        _validationError = null;
+    }
+
+    private void Clear()
+    {
+        _text = string.Empty;
+        _validationError = null;
+    }
+
+    private void ClearValidation()
+    {
+        _validationError = null;
+    }
+
+    private sealed record SourceOption(OrderSource Source, string Label);
+}

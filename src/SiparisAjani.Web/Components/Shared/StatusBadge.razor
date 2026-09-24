@@ -1,0 +1,24 @@
+<span class="status-badge status-badge--@Modifier">
+    <span class="status-dot" aria-hidden="true"></span>
+    @Label
+</span>
+
+@code {
+    [Parameter, EditorRequired]
+    public LineStatus Status { get; set; }
+
+    private string Label => Status switch
+    {
+        LineStatus.Matched => "Eşleşti",
+        LineStatus.Ambiguous => "Seçim gerekli",
+        LineStatus.NotFound => "Bulunamadı",
+        _ => "Bilinmiyor"
+    };
+
+    private string Modifier => Status switch
+    {
+        LineStatus.Matched => "matched",
+        LineStatus.Ambiguous => "ambiguous",
+        _ => "notfound"
+    };
+}

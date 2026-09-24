@@ -1,0 +1,99 @@
+@implements IDisposable
+@inject OrderAgentApiClient Api
+
+<div class="picker">
+    <label class="visually-hidden" for="@_inputId">@Label</label>
+    <input id="@_inputId"
+           type="search"
+           class="input input-sm"
+           placeholder="Katalogda ara (ör. silikon)"
+           autocomplete="off"
+           aria-describedby="@(_inputId)-status"
+           @bind="_query"
+           @bind:event="oninput"
+           @bind:after="OnQueryChangedAsync" />
+    <span id="@(_inputId)-status" class="picker-status @(_hasError ? "picker-status--error" : null)" role="status">@_statusText</span>
+
+    @if (_results.Count > 0)
+    {
+        <ul class="picker-results" aria-label="Arama sonuçları">
+            @foreach (CatalogItemDto item in _results)
+            {
+                <li>
+                    <button type="button" class="picker-option" @onclick="() => OnSelected.InvokeAsync(item)">
+                        <span class="picker-option-name">@item.Name</span>
+                        <span class="picker-option-meta">@item.Sku · @item.Unit</span>
+                    </button>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+@code {
+    private const int MinQueryLength = 2;
+    private const int ResultLimit = 8;
+    private static readonly TimeSpan DebounceDelay = TimeSpan.FromMilliseconds(300);
+
+    private readonly string _inputId = $"catalog-picker-{Guid.NewGuid():N}";
+    private readonly Debouncer _debouncer = new();
+    private string _query = string.Empty;
+    private IReadOnlyList<CatalogItemDto> _results = [];
+    private string _statusText = string.Empty;
+    private bool _hasError;
+
+    /// <summary>Ekran okuyucu için arama kutusunun adı.</summary>
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<CatalogItemDto> OnSelected { get; set; }
+
+    private async Task OnQueryChangedAsync()
+    {
+        string term = _query.Trim();
+        CancellationToken cancellationToken = _debouncer.Next();
+
+        if (term.Length < MinQueryLength)
+        {
+            _results = [];
+            _hasError = false;
+            _statusText = term.Length == 0 ? string.Empty : "En az 2 harf yazın.";
+            return;
+        }
+
+        try
+        {
+            await Task.Delay(DebounceDelay, cancellationToken);
+            _statusText = "Aranıyor…";
+            _hasError = false;
+            StateHasChanged();
+
+            ApiResult<IReadOnlyList<CatalogItemDto>> result = await Api.SearchCatalogAsync(term, ResultLimit, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (result.IsSuccess)
+            {
+                _results = result.Value;
+                _statusText = _results.Count == 0
+                    ? "Sonuç yok. Başka bir kelime deneyin."
+                    : $"{DisplayFormat.Number(_results.Count)} sonuç. Doğru ürünü seçin.";
+            }
+            else
+            {
+                _results = [];
+                _hasError = true;
+                _statusText = result.Error;
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Yeni bir tuş vuruşu bu aramayı geçersiz kıldı.
+        }
+    }
+
+    public void Dispose()
+    {
+        _debouncer.Dispose();
+    }
+}

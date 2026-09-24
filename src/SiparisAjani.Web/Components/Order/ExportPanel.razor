@@ -1,0 +1,154 @@
+@inject OrderAgentApiClient Api
+@inject FileDownloadService Downloader
+@inject ApiStatusNotifier StatusNotifier
+
+<section class="card" aria-labelledby="export-heading">
+    <h2 id="export-heading">Excel'e aktar</h2>
+
+    <div class="export-grid">
+        <div class="field">
+            <label for="export-customer-code" class="field-label">
+                Cari kodu <span class="optional">(isteğe bağlı)</span>
+            </label>
+            <input id="export-customer-code"
+                   class="input"
+                   maxlength="50"
+                   autocomplete="off"
+                   @bind="_customerCode" />
+        </div>
+        <div class="field">
+            <label for="export-note" class="field-label">
+                Not <span class="optional">(isteğe bağlı)</span>
+            </label>
+            <input id="export-note"
+                   class="input"
+                   maxlength="500"
+                   autocomplete="off"
+                   @bind="_note" />
+        </div>
+    </div>
+
+    <div class="actions">
+        <button type="button"
+                class="btn btn-primary btn-lg"
+                disabled="@(!CanExport)"
+                aria-describedby="export-hint"
+                @onclick="ExportAsync">
+            @(_isExporting ? "Hazırlanıyor…" : "Excel'e aktar")
+        </button>
+        <span id="export-hint" class="hint @(IsBlocked ? "hint--warn" : null)">@HintText</span>
+    </div>
+
+    @if (_error is not null)
+    {
+        <Notice Kind="NoticeKind.Error">
+            <p>@_error</p>
+        </Notice>
+    }
+    else if (_successMessage is not null)
+    {
+        <div role="status">
+            <Notice Kind="NoticeKind.Success">
+                <p>@_successMessage</p>
+            </Notice>
+        </div>
+    }
+</section>
+
+@code {
+    private string? _customerCode;
+    private string? _note;
+    private bool _isExporting;
+    private string? _error;
+    private string? _successMessage;
+
+    [Parameter, EditorRequired]
+    public IReadOnlyList<OrderLineState> Lines { get; set; } = [];
+
+    private int PendingCount => Lines.Count(line => !line.IsMatched);
+
+    private int MissingQuantityCount => Lines.Count(line => line.IsMatched && !line.HasValidQuantity);
+
+    private bool IsBlocked => Lines.Count == 0 || PendingCount > 0 || MissingQuantityCount > 0;
+
+    private bool CanExport => RendererInfo.IsInteractive && !_isExporting && !IsBlocked;
+
+    private string HintText
+    {
+        get
+        {
+            if (Lines.Count == 0)
+            {
+                return "Aktarılacak satır yok.";
+            }
+
+            List<string> reasons = [];
+            if (PendingCount > 0)
+            {
+                reasons.Add($"{DisplayFormat.Number(PendingCount)} satırda seçim gerekli");
+            }
+
+            if (MissingQuantityCount > 0)
+            {
+                reasons.Add($"{DisplayFormat.Number(MissingQuantityCount)} satırda miktar eksik");
+            }
+
+            return reasons.Count > 0
+                ? string.Join(" · ", reasons)
+                : $"{DisplayFormat.Number(Lines.Count)} satır aktarılacak.";
+        }
+    }
+
+    private async Task ExportAsync()
+    {
+        if (IsBlocked || _isExporting)
+        {
+            return;
+        }
+
+        _isExporting = true;
+        _error = null;
+        _successMessage = null;
+
+        try
+        {
+            ExportOrderRequest request = new(
+                Lines.Select(line => line.ToExportLine()).ToList(),
+                CustomerCode: Normalize(_customerCode),
+                OrderDate: null,
+                Note: Normalize(_note));
+
+            ApiResult<(byte[] Content, string FileName)> result = await Api.ExportOrderAsync(request);
+            if (!result.IsSuccess)
+            {
+                _error = result.Error;
+                if (result.IsServerDown)
+                {
+                    StatusNotifier.RequestRefresh();
+                }
+
+                return;
+            }
+
+            (byte[] content, string fileName) = result.Value;
+            bool started = await Downloader.DownloadAsync(fileName, content, OrderAgentApiClient.ExcelContentType);
+            if (started)
+            {
+                _successMessage = $"“{fileName}” indirildi.";
+            }
+            else
+            {
+                _error = "Dosya hazırlandı ama indirilemedi. Tarayıcı indirmeyi engellemiş olabilir; sayfayı yenileyip tekrar deneyin.";
+            }
+        }
+        finally
+        {
+            _isExporting = false;
+        }
+    }
+
+    private static string? Normalize(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+    }
+}

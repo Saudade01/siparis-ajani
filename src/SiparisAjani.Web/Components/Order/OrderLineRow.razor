@@ -1,0 +1,154 @@
+<tr class="line-row line-row--@StatusModifier">
+    <td class="col-no num">@Line.LineNo</td>
+    <td class="col-raw">
+        <span class="raw-text">@Line.RawText</span>
+    </td>
+    <td class="col-qty">
+        <label class="visually-hidden" for="@QuantityId">@Line.LineNo. satırın miktarı</label>
+        <input id="@QuantityId"
+               type="number"
+               min="0"
+               step="any"
+               inputmode="decimal"
+               class="input input-sm input-qty @(Line.HasValidQuantity ? null : "is-invalid")"
+               aria-invalid="@(Line.HasValidQuantity ? "false" : "true")"
+               @bind="Line.Quantity"
+               @bind:after="NotifyChangedAsync" />
+        @if (!Line.HasValidQuantity)
+        {
+            <span class="row-note row-note--error">Miktar girin</span>
+        }
+    </td>
+    <td class="col-unit">@(Line.DisplayUnit ?? "—")</td>
+    <td class="col-product">
+        @if (Line.IsMatched && Line.Product is { } product)
+        {
+            <span class="product-name">@product.Name</span>
+            <span class="product-sku">@product.Sku</span>
+
+            @if (Line.IsSavingCorrection)
+            {
+                <span class="row-note">Seçim kaydediliyor…</span>
+            }
+            else if (Line.CorrectionError is not null)
+            {
+                <span class="row-note row-note--error">@Line.CorrectionError</span>
+            }
+            else if (Line.CorrectionSaved)
+            {
+                <span class="row-note row-note--ok">Hatırlandı</span>
+            }
+
+            @if (Line.CanReopen && !Line.IsSavingCorrection)
+            {
+                <button type="button" class="link-button" @onclick="ReopenAsync">
+                    Değiştir<span class="visually-hidden"> (@Line.LineNo. satır)</span>
+                </button>
+            }
+        }
+        else if (Line.Status == LineStatus.Ambiguous && Line.Candidates.Count > 0 && !Line.IsSearching)
+        {
+            <label class="visually-hidden" for="@ChoiceId">@Line.LineNo. satır için ürün seçin</label>
+            <select id="@ChoiceId" class="select select-sm" @onchange="OnCandidateChangedAsync">
+                <option value="" selected>Ürün seçin…</option>
+                @foreach (MatchCandidateDto candidate in Line.Candidates)
+                {
+                    <option value="@candidate.Sku">@candidate.Name (@candidate.Sku) · @DisplayFormat.Percent(candidate.Confidence)</option>
+                }
+                <option value="@SearchOptionValue">Listede yok, katalogda ara…</option>
+            </select>
+        }
+        else
+        {
+            <CatalogSearchPicker Label="@($"{Line.LineNo}. satır için katalogda ara")" OnSelected="OnCatalogItemSelectedAsync" />
+            @if (Line.Status == LineStatus.Ambiguous && Line.Candidates.Count > 0)
+            {
+                <button type="button" class="link-button" @onclick="BackToCandidates">Önerilen ürünlere dön</button>
+            }
+        }
+    </td>
+    <td class="col-confidence">
+        <ConfidenceMeter Value="ConfidenceValue" IsManual="@(Line.Product?.IsManual == true)" />
+    </td>
+    <td class="col-status">
+        <StatusBadge Status="Line.Status" />
+    </td>
+    <td class="col-actions">
+        <button type="button" class="btn btn-ghost btn-sm" @onclick="() => OnRemove.InvokeAsync(Line)">
+            Satırı çıkar<span class="visually-hidden"> (@Line.LineNo. satır)</span>
+        </button>
+    </td>
+</tr>
+
+@code {
+    private const string SearchOptionValue = "__katalogda-ara__";
+
+    [Parameter, EditorRequired]
+    public OrderLineState Line { get; set; } = default!;
+
+    /// <summary>Miktar değişti ya da satır yeniden seçime açıldı.</summary>
+    [Parameter]
+    public EventCallback OnChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<ProductChoice> OnProductChosen { get; set; }
+
+    [Parameter]
+    public EventCallback<OrderLineState> OnRemove { get; set; }
+
+    private string QuantityId => $"qty-{Line.Key}";
+
+    private string ChoiceId => $"choice-{Line.Key}";
+
+    private string StatusModifier => Line.Status switch
+    {
+        LineStatus.Matched => "matched",
+        LineStatus.Ambiguous => "ambiguous",
+        _ => "notfound"
+    };
+
+    private double? ConfidenceValue => Line.Product is not null
+        ? Line.Product.Confidence
+        : Line.Status == LineStatus.Ambiguous ? Line.Source.BestMatch?.Confidence : null;
+
+    private Task NotifyChangedAsync()
+    {
+        return OnChanged.InvokeAsync();
+    }
+
+    private Task OnCandidateChangedAsync(ChangeEventArgs args)
+    {
+        string? sku = args.Value?.ToString();
+        if (string.IsNullOrEmpty(sku))
+        {
+            return Task.CompletedTask;
+        }
+
+        if (sku == SearchOptionValue)
+        {
+            Line.IsSearching = true;
+            return Task.CompletedTask;
+        }
+
+        MatchCandidateDto? candidate = Line.Candidates.FirstOrDefault(item => item.Sku == sku);
+        return candidate is null
+            ? Task.CompletedTask
+            : OnProductChosen.InvokeAsync(new ProductChoice(Line, candidate.Sku, candidate.Name, candidate.Unit));
+    }
+
+    private Task OnCatalogItemSelectedAsync(CatalogItemDto item)
+    {
+        return OnProductChosen.InvokeAsync(new ProductChoice(Line, item.Sku, item.Name, item.Unit));
+    }
+
+    private void BackToCandidates()
+    {
+        Line.IsSearching = false;
+    }
+
+    private Task ReopenAsync()
+    {
+        Line.Reopen();
+        return OnChanged.InvokeAsync();
+    }
+}

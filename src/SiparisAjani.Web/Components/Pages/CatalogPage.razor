@@ -1,0 +1,173 @@
+@page "/katalog"
+@implements IDisposable
+@inject OrderAgentApiClient Api
+@inject ApiStatusNotifier StatusNotifier
+
+<PageTitle>Katalog · SiparisAjani</PageTitle>
+
+<div class="stack">
+    <header class="page-header">
+        <h1>Katalog</h1>
+        <p class="lead">Siparişler bu ürün listesiyle eşleştirilir. Ürün arayın ya da CSV dosyasıyla ürün yükleyin.</p>
+    </header>
+
+    <section class="card" aria-labelledby="catalog-search-heading">
+        <h2 id="catalog-search-heading">Ürün ara</h2>
+        <div class="field">
+            <label for="catalog-search" class="field-label">Ürün adı ya da stok kodu</label>
+            <input id="catalog-search"
+                   type="search"
+                   class="input"
+                   placeholder="ör. sunta vidası, VD-4040"
+                   autocomplete="off"
+                   aria-describedby="catalog-search-status"
+                   disabled="@(!RendererInfo.IsInteractive)"
+                   @bind="_query"
+                   @bind:event="oninput"
+                   @bind:after="OnQueryChangedAsync" />
+            <p id="catalog-search-status" class="hint" role="status">@StatusText</p>
+        </div>
+
+        @if (_error is not null)
+        {
+            <Notice Kind="NoticeKind.Error">
+                <p>@_error</p>
+            </Notice>
+        }
+        else if (_items.Count > 0)
+        {
+            <div class="table-wrap">
+                <table class="data-table catalog-table">
+                    <caption class="visually-hidden">Katalog arama sonuçları</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Stok kodu</th>
+                            <th scope="col">Ürün adı</th>
+                            <th scope="col">Birim</th>
+                            <th scope="col">Kategori</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (CatalogItemDto item in _items)
+                        {
+                            <tr>
+                                <td class="product-sku-cell">@item.Sku</td>
+                                <td>@item.Name</td>
+                                <td>@item.Unit</td>
+                                <td>@(string.IsNullOrWhiteSpace(item.Category) ? "—" : item.Category)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </section>
+
+    <CatalogImportCard OnImported="OnImportedAsync" />
+</div>
+
+@code {
+    private const int PageSize = 50;
+    private static readonly TimeSpan DebounceDelay = TimeSpan.FromMilliseconds(300);
+
+    private readonly Debouncer _debouncer = new();
+    private string _query = string.Empty;
+    private IReadOnlyList<CatalogItemDto> _items = [];
+    private bool _isLoading = true;
+    private string? _error;
+
+    private string StatusText
+    {
+        get
+        {
+            if (_isLoading)
+            {
+                return "Aranıyor…";
+            }
+
+            if (_error is not null)
+            {
+                return string.Empty;
+            }
+
+            string term = _query.Trim();
+            if (_items.Count == 0)
+            {
+                return term.Length == 0
+                    ? "Katalogda ürün yok. Aşağıdan CSV dosyası yükleyin."
+                    : $"“{term}” için sonuç bulunamadı.";
+            }
+
+            return _items.Count >= PageSize
+                ? $"İlk {DisplayFormat.Number(PageSize)} sonuç gösteriliyor. Daha azı için aramayı daraltın."
+                : $"{DisplayFormat.Number(_items.Count)} sonuç";
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!RendererInfo.IsInteractive)
+        {
+            return;
+        }
+
+        await LoadAsync(CancellationToken.None);
+    }
+
+    private async Task OnQueryChangedAsync()
+    {
+        CancellationToken cancellationToken = _debouncer.Next();
+        try
+        {
+            await Task.Delay(DebounceDelay, cancellationToken);
+            _isLoading = true;
+            StateHasChanged();
+            await LoadAsync(cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            // Yeni bir tuş vuruşu bu aramayı geçersiz kıldı.
+        }
+    }
+
+    private async Task LoadAsync(CancellationToken cancellationToken)
+    {
+        _isLoading = true;
+        try
+        {
+            ApiResult<IReadOnlyList<CatalogItemDto>> result = await Api.SearchCatalogAsync(_query, PageSize, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            _isLoading = false;
+            if (result.IsSuccess)
+            {
+                _items = result.Value;
+                _error = null;
+            }
+            else
+            {
+                _items = [];
+                _error = result.Error;
+                if (result.IsServerDown)
+                {
+                    StatusNotifier.RequestRefresh();
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Daha yeni bir arama başladı; sonucu o gösterecek.
+        }
+    }
+
+    private async Task OnImportedAsync()
+    {
+        StatusNotifier.RequestRefresh();
+        await LoadAsync(_debouncer.Next());
+    }
+
+    public void Dispose()
+    {
+        _debouncer.Dispose();
+    }
+}

@@ -1,0 +1,98 @@
+<div class="summary">
+    <p class="summary-counts">@CountsText</p>
+
+    <p class="meta">
+        @(Draft.Extractor == ExtractorKind.Claude ? "Yapay zekâ ile çözümlendi" : "Kural modu ile çözümlendi")
+        @if (!string.IsNullOrWhiteSpace(Draft.CustomerHint))
+        {
+            <span> · Müşteri: @Draft.CustomerHint</span>
+        }
+    </p>
+
+    @if (MaskedText is not null)
+    {
+        <Notice Kind="NoticeKind.Info">
+            <p>@MaskedText</p>
+        </Notice>
+    }
+
+    @if (Warnings.Count > 0)
+    {
+        <Notice Kind="NoticeKind.Warning" Title="Kontrol edin">
+            <ul>
+                @foreach (string warning in Warnings)
+                {
+                    <li>@warning</li>
+                }
+            </ul>
+        </Notice>
+    }
+</div>
+
+@code {
+    private static readonly Dictionary<string, string> MaskedFieldNames = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["phone"] = "telefon numarası",
+        ["email"] = "e-posta adresi",
+        ["iban"] = "IBAN",
+        ["nationalId"] = "TC kimlik numarası",
+        // v0.1.2: kişi adları ve "Hasan Bey" gibi hitaplar da maskeleniyor.
+        ["name"] = "isim"
+    };
+
+    [Parameter, EditorRequired]
+    public OrderDraftDto Draft { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public IReadOnlyList<OrderLineState> Lines { get; set; } = [];
+
+    private IReadOnlyList<string> Warnings => Draft.Warnings ?? Array.Empty<string>();
+
+    private string CountsText
+    {
+        get
+        {
+            int matched = Lines.Count(line => line.Status == LineStatus.Matched);
+            int ambiguous = Lines.Count(line => line.Status == LineStatus.Ambiguous);
+            int notFound = Lines.Count(line => line.Status == LineStatus.NotFound);
+
+            List<string> parts =
+            [
+                $"{DisplayFormat.Number(Lines.Count)} satır",
+                $"{DisplayFormat.Number(matched)} eşleşti"
+            ];
+            if (ambiguous > 0)
+            {
+                parts.Add($"{DisplayFormat.Number(ambiguous)} seçim gerekli");
+            }
+
+            if (notFound > 0)
+            {
+                parts.Add($"{DisplayFormat.Number(notFound)} bulunamadı");
+            }
+
+            return string.Join(" · ", parts);
+        }
+    }
+
+    private string? MaskedText
+    {
+        get
+        {
+            List<string> names = (Draft.MaskedFields ?? Array.Empty<string>())
+                .Select(maskedField => MaskedFieldNames.TryGetValue(maskedField, out string? name) ? name : "kişisel bilgi")
+                .Distinct(StringComparer.Ordinal)
+                .ToList();
+
+            if (names.Count == 0)
+            {
+                return null;
+            }
+
+            string joined = names.Count == 1
+                ? names[0]
+                : string.Join(", ", names.Take(names.Count - 1)) + " ve " + names[^1];
+            return $"{DisplayFormat.CapitalizeFirst(joined)} gizlendi, modele gönderilmedi.";
+        }
+    }
+}

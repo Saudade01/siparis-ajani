@@ -1,0 +1,34 @@
+@if (IsManual)
+{
+    <span class="confidence-manual">Elle seçildi</span>
+}
+else if (Value is double value)
+{
+    <span class="confidence confidence--@Level(value)">
+        <span class="confidence-value">@DisplayFormat.Percent(value)</span>
+        <span class="confidence-bar" aria-hidden="true">
+            <span class="confidence-fill" style="width: @DisplayFormat.CssPercent(value)"></span>
+        </span>
+    </span>
+}
+else
+{
+    <span class="muted"><span aria-hidden="true">—</span><span class="visually-hidden">Güven puanı yok</span></span>
+}
+
+@code {
+    // Eşikler API sözleşmesiyle aynı: 0,80 ve üstü eşleşme, 0,45 ve üstü belirsiz.
+    private const double HighThreshold = 0.80;
+    private const double MediumThreshold = 0.45;
+
+    [Parameter]
+    public double? Value { get; set; }
+
+    [Parameter]
+    public bool IsManual { get; set; }
+
+    private static string Level(double value)
+    {
+        return value >= HighThreshold ? "high" : value >= MediumThreshold ? "medium" : "low";
+    }
+}

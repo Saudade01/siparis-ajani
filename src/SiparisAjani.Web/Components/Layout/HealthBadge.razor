@@ -1,0 +1,115 @@
+@implements IDisposable
+@inject OrderAgentApiClient Api
+@inject ApiStatusNotifier StatusNotifier
+
+<button type="button"
+        class="health-badge health-badge--@_state"
+        title="@_detail"
+        disabled="@(!RendererInfo.IsInteractive)"
+        @onclick="RefreshAndRenderAsync">
+    <span class="health-dot" aria-hidden="true"></span>
+    <span role="status">@_label</span>
+    <span class="visually-hidden">(durumu yenile)</span>
+</button>
+
+@code {
+    private static readonly TimeSpan RefreshInterval = TimeSpan.FromSeconds(30);
+
+    private readonly CancellationTokenSource _disposeCts = new();
+    private string _state = "checking";
+    private string _label = "Sunucu kontrol ediliyor…";
+    private string _detail = "Sunucu durumunu yenilemek için tıklayın.";
+    private bool _isRefreshing;
+    private bool _isDisposed;
+
+    protected override async Task OnInitializedAsync()
+    {
+        StatusNotifier.RefreshRequested += OnRefreshRequested;
+
+        if (!RendererInfo.IsInteractive)
+        {
+            return;
+        }
+
+        await RefreshAsync();
+        if (!_isDisposed)
+        {
+            _ = PollAsync(_disposeCts.Token);
+        }
+    }
+
+    private async Task PollAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            using PeriodicTimer timer = new(RefreshInterval);
+            while (await timer.WaitForNextTickAsync(cancellationToken))
+            {
+                await InvokeAsync(RefreshAndRenderAsync);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Bileşen kapandı.
+        }
+    }
+
+    private void OnRefreshRequested()
+    {
+        _ = InvokeAsync(RefreshAndRenderAsync);
+    }
+
+    private async Task RefreshAndRenderAsync()
+    {
+        await RefreshAsync();
+        if (!_isDisposed)
+        {
+            StateHasChanged();
+        }
+    }
+
+    private async Task RefreshAsync()
+    {
+        if (_isRefreshing || _isDisposed)
+        {
+            return;
+        }
+
+        _isRefreshing = true;
+        try
+        {
+            ApiResult<HealthDto> result = await Api.GetHealthAsync(_disposeCts.Token);
+            if (result.IsSuccess)
+            {
+                HealthDto health = result.Value;
+                bool isAi = health.Extractor == ExtractorKind.Claude;
+                string mode = isAi ? "Gelişmiş okuma" : "Hızlı okuma";
+                _state = isAi ? "ai" : "rules";
+                _label = $"{mode} · {DisplayFormat.Number(health.CatalogCount)} ürün";
+                _detail = "Sunucu çalışıyor. Yenilemek için tıklayın.";
+            }
+            else
+            {
+                _state = "down";
+                _label = result.IsServerDown ? "Sunucu kapalı" : "Sunucu hatası";
+                _detail = result.Error;
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Bileşen kapanırken istek iptal edildi.
+        }
+        finally
+        {
+            _isRefreshing = false;
+        }
+    }
+
+    public void Dispose()
+    {
+        _isDisposed = true;
+        StatusNotifier.RefreshRequested -= OnRefreshRequested;
+        _disposeCts.Cancel();
+        _disposeCts.Dispose();
+    }
+}

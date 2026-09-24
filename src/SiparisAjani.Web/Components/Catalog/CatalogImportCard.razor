@@ -1,0 +1,176 @@
+@inject OrderAgentApiClient Api
+@inject ApiStatusNotifier StatusNotifier
+
+<section class="card" aria-labelledby="catalog-import-heading">
+    <h2 id="catalog-import-heading">CSV ile ürün yükle</h2>
+
+    <div class="help">
+        <p>
+            Ürün listesini Excel'de <strong>CSV UTF-8</strong> olarak kaydedin. İlk satır şu başlıkları içermeli
+            (ayraç noktalı virgül ya da virgül olabilir):
+        </p>
+        <pre class="code-sample"><code>sku;name;unit;barcode;category
+VD-4040-SNT;Sunta Vidası 4x40 (500'lü kutu);kutu;8694000396083;vida</code></pre>
+        <ul class="help-list">
+            <li><code>sku</code> stok kodu, <code>name</code> ürün adı, <code>unit</code> birim (kutu, adet, paket…).</li>
+            <li><code>barcode</code> ve <code>category</code> boş bırakılabilir.</li>
+            <li>Dosya en fazla 5 MB olabilir.</li>
+        </ul>
+    </div>
+
+    <div class="field">
+        <label for="catalog-file" class="field-label">CSV dosyası</label>
+        <InputFile @key="_inputKey"
+                   id="catalog-file"
+                   class="file-input"
+                   accept=".csv,text/csv"
+                   disabled="@(!RendererInfo.IsInteractive || _isImporting)"
+                   OnChange="OnFileSelected" />
+        @if (_selectedFile is not null)
+        {
+            <p class="hint">Seçilen dosya: @_selectedFile.Name (@DisplayFormat.FileSize(_selectedFile.Size))</p>
+        }
+    </div>
+
+    @if (_validationError is not null)
+    {
+        <Notice Kind="NoticeKind.Error">
+            <p>@_validationError</p>
+        </Notice>
+    }
+
+    <div class="actions">
+        <button type="button"
+                class="btn btn-primary"
+                disabled="@(!RendererInfo.IsInteractive || _isImporting || _selectedFile is null)"
+                @onclick="ImportAsync">
+            @(_isImporting ? "Yükleniyor…" : "Kataloğu yükle")
+        </button>
+    </div>
+
+    @if (_result is not null)
+    {
+        <div role="status">
+            <Notice Kind="@(_result.Errors.Count > 0 ? NoticeKind.Warning : NoticeKind.Success)" Title="@ResultTitle">
+                @if (_result.Errors.Count > 0)
+                {
+                    <ul class="error-list">
+                        @foreach (string error in _result.Errors.Take(MaxErrorsShown))
+                        {
+                            <li>@error</li>
+                        }
+                    </ul>
+                    @if (_result.Errors.Count > MaxErrorsShown)
+                    {
+                        <p>…ve @DisplayFormat.Number(_result.Errors.Count - MaxErrorsShown) hata daha.</p>
+                    }
+                }
+            </Notice>
+        </div>
+    }
+</section>
+
+@code {
+    private const long MaxFileBytes = 5 * 1024 * 1024;
+    private const int MaxErrorsShown = 20;
+
+    private IBrowserFile? _selectedFile;
+    private int _inputKey;
+    private bool _isImporting;
+    private string? _validationError;
+    private CatalogImportResultDto? _result;
+
+    [Parameter]
+    public EventCallback OnImported { get; set; }
+
+    private string ResultTitle
+    {
+        get
+        {
+            if (_result is null)
+            {
+                return string.Empty;
+            }
+
+            string title = $"{DisplayFormat.Number(_result.Imported)} ürün eklendi";
+            return _result.Skipped > 0
+                ? $"{title}, {DisplayFormat.Number(_result.Skipped)} satır atlandı"
+                : title;
+        }
+    }
+
+    private void OnFileSelected(InputFileChangeEventArgs args)
+    {
+        _result = null;
+        _validationError = null;
+        _selectedFile = null;
+
+        IBrowserFile file = args.File;
+        if (!string.Equals(Path.GetExtension(file.Name), ".csv", StringComparison.OrdinalIgnoreCase))
+        {
+            _validationError = "Yalnızca .csv uzantılı dosya yüklenebilir. Excel'de “Farklı kaydet → CSV UTF-8” seçin.";
+            return;
+        }
+
+        if (file.Size > MaxFileBytes)
+        {
+            _validationError = $"Dosya çok büyük ({DisplayFormat.FileSize(file.Size)}). En fazla 5 MB olabilir.";
+            return;
+        }
+
+        if (file.Size == 0)
+        {
+            _validationError = "Dosya boş görünüyor.";
+            return;
+        }
+
+        _selectedFile = file;
+    }
+
+    private async Task ImportAsync()
+    {
+        if (_selectedFile is null || _isImporting)
+        {
+            return;
+        }
+
+        _isImporting = true;
+        _validationError = null;
+        _result = null;
+
+        try
+        {
+            using MemoryStream buffer = new();
+            await using (Stream browserStream = _selectedFile.OpenReadStream(MaxFileBytes))
+            {
+                await browserStream.CopyToAsync(buffer);
+            }
+
+            buffer.Position = 0;
+            ApiResult<CatalogImportResultDto> result = await Api.ImportCatalogAsync(buffer, _selectedFile.Name);
+            if (result.IsSuccess)
+            {
+                _result = result.Value with { Errors = result.Value.Errors ?? Array.Empty<string>() };
+                _selectedFile = null;
+                _inputKey++;
+                await OnImported.InvokeAsync();
+            }
+            else
+            {
+                _validationError = result.Error;
+                if (result.IsServerDown)
+                {
+                    StatusNotifier.RequestRefresh();
+                }
+            }
+        }
+        catch (Exception exception) when (exception is IOException or JSException or InvalidOperationException)
+        {
+            _validationError = "Dosya okunamadı. Dosyayı yeniden seçip tekrar deneyin.";
+        }
+        finally
+        {
+            _isImporting = false;
+        }
+    }
+}

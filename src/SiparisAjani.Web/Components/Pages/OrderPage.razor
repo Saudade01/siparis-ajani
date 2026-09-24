@@ -1,0 +1,215 @@
+@page "/"
+@implements IDisposable
+@inject OrderAgentApiClient Api
+@inject ApiStatusNotifier StatusNotifier
+
+<PageTitle>SiparisAjani</PageTitle>
+
+<div class="stack">
+    <header class="page-header">
+        <h1>Sipariş</h1>
+        <p class="lead">Müşterinin mesajını yapıştırın, satırları kontrol edin, gerekirse ürünü seçin ve Excel'e aktarın.</p>
+    </header>
+
+    <OrderInput IsBusy="_isParsing" Error="@_parseError" OnSubmit="ParseAsync" />
+
+    @if (_draft is not null)
+    {
+        <section class="stack" aria-labelledby="result-heading">
+            <div class="stack stack--tight">
+                <h2 id="result-heading" tabindex="-1" @ref="_resultHeading">Çözümleme sonucu</h2>
+                <OrderSummary Draft="_draft" Lines="_lines" />
+            </div>
+
+            @if (_lines.Count > 0)
+            {
+                <div class="table-wrap">
+                    <table class="data-table order-table">
+                        <caption class="visually-hidden">Sipariş satırları</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="num">No</th>
+                                <th scope="col">Müşterinin yazdığı</th>
+                                <th scope="col">Miktar</th>
+                                <th scope="col">Birim</th>
+                                <th scope="col">Eşleşen ürün</th>
+                                <th scope="col">Güven</th>
+                                <th scope="col">Durum</th>
+                                <th scope="col"><span class="visually-hidden">İşlem</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (OrderLineState line in _lines)
+                            {
+                                <OrderLineRow @key="line"
+                                              Line="line"
+                                              OnChanged="StateHasChanged"
+                                              OnProductChosen="ChooseProductAsync"
+                                              OnRemove="RemoveLine" />
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <ExportPanel Lines="_lines" />
+            }
+            else
+            {
+                <Notice Kind="NoticeKind.Warning">
+                    <p>
+                        @(_draft.Lines.Count == 0
+                            ? "Metinde sipariş satırı bulunamadı. Her ürünü ayrı satıra yazıp tekrar deneyin."
+                            : "Tüm satırlar çıkarıldı. Yeniden başlamak için “Çözümle”ye basın.")
+                    </p>
+                </Notice>
+            }
+        </section>
+    }
+</div>
+
+<div class="toast-region" role="status" aria-live="polite">
+    @if (_toastMessage is not null)
+    {
+        <div class="toast">@_toastMessage</div>
+    }
+</div>
+
+@code {
+    private static readonly TimeSpan ToastDuration = TimeSpan.FromSeconds(4);
+
+    private OrderDraftDto? _draft;
+    private List<OrderLineState> _lines = [];
+    private bool _isParsing;
+    private string? _parseError;
+    private ElementReference _resultHeading;
+    private bool _focusResult;
+    private string? _toastMessage;
+    private int _toastVersion;
+    private bool _isDisposed;
+
+    private async Task ParseAsync(ParseOrderRequest request)
+    {
+        if (_isParsing)
+        {
+            return;
+        }
+
+        _isParsing = true;
+        _parseError = null;
+
+        try
+        {
+            ApiResult<OrderDraftDto> result = await Api.ParseOrderAsync(request);
+            if (result.IsSuccess)
+            {
+                _draft = result.Value;
+                _lines = (_draft.Lines ?? Array.Empty<OrderLineDto>())
+                    .Select(line => new OrderLineState(line))
+                    .ToList();
+                _focusResult = true;
+            }
+            else
+            {
+                _parseError = result.Error;
+                if (result.IsServerDown)
+                {
+                    StatusNotifier.RequestRefresh();
+                }
+            }
+        }
+        finally
+        {
+            _isParsing = false;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_focusResult || _draft is null)
+        {
+            return;
+        }
+
+        _focusResult = false;
+        try
+        {
+            await _resultHeading.FocusAsync();
+        }
+        catch (JSException)
+        {
+            // Odak taşınamazsa sayfa yine kullanılabilir.
+        }
+    }
+
+    private async Task ChooseProductAsync(ProductChoice choice)
+    {
+        OrderLineState line = choice.Line;
+        line.Choose(choice.Sku, choice.Name, choice.Unit);
+
+        if (string.IsNullOrWhiteSpace(line.ProductText))
+        {
+            return;
+        }
+
+        line.IsSavingCorrection = true;
+        StateHasChanged();
+
+        ApiResult<bool> result = await Api.SaveCorrectionAsync(new CorrectionRequest(line.ProductText, choice.Sku));
+        line.IsSavingCorrection = false;
+
+        if (line.Product?.Sku != choice.Sku)
+        {
+            // Kullanıcı bu arada seçimi değiştirdi; eski sonucu gösterme.
+            return;
+        }
+
+        if (result.IsSuccess)
+        {
+            line.CorrectionSaved = true;
+            ShowToast($"Hatırlandı: “{line.ProductText}” bundan sonra {choice.Name} ile eşleşecek.");
+        }
+        else
+        {
+            line.CorrectionError = $"Bu siparişte kullanıldı ama hatırlanamadı. {result.Error}";
+            if (result.IsServerDown)
+            {
+                StatusNotifier.RequestRefresh();
+            }
+        }
+    }
+
+    private void RemoveLine(OrderLineState line)
+    {
+        if (_lines.Remove(line))
+        {
+            ShowToast($"{line.LineNo}. satır çıkarıldı.");
+        }
+    }
+
+    private void ShowToast(string message)
+    {
+        _toastMessage = message;
+        int version = ++_toastVersion;
+        _ = HideToastAsync(version);
+    }
+
+    private async Task HideToastAsync(int version)
+    {
+        await Task.Delay(ToastDuration);
+        if (_isDisposed || version != _toastVersion)
+        {
+            return;
+        }
+
+        await InvokeAsync(() =>
+        {
+            _toastMessage = null;
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        _isDisposed = true;
+    }
+}
